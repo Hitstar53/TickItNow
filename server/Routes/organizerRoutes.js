@@ -3,21 +3,21 @@ const router = express.Router();
 const organizerController = require('../controllers/organizerController');
 
 // Create a new organizer
-router.post('/organizers', organizerController.createOrganizer);
+router.post('/', organizerController.createOrganizer);
 
 // Get all organizers
-router.get('/organizers', organizerController.getOrganizers);
+router.get('/', organizerController.getOrganizers);
 
 // Get a single organizer by ID
-router.get('/organizers/:id', organizerController.getOrganizer);
+router.get('/:id', organizerController.getOrganizer);
 
 // Update an organizer by ID
-router.put('/organizers/:id', organizerController.updateOrganizer);
+router.put('/:id', organizerController.updateOrganizer);
 
 // Delete an organizer by ID
-router.delete('/organizers/:id', organizerController.deleteOrganizer);
+router.delete(':id', organizerController.deleteOrganizer);
 
-// Get evenets by organizer ID
-router.get('/organizers/:id/events', organizerController.getEventsByOrganizerId);
+// Get events by organizer ID
+router.get(':id/events', organizerController.getEventsByOrganizerId);
 
 module.exports = router;
