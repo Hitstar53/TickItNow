@@ -3,7 +3,7 @@ import mongoose from 'mongoose'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import dotenv from 'dotenv'
-import userRouter from './Routes/User.js'
+import userRouter from './Routes/userRoutes.js'
 
 /* setting up server */
 const app = express()
@@ -23,3 +23,4 @@ mongoose.connect(process.env.MONGO_URL, {useNewUrlParser: true, useUnifiedTopolo
 
 // set up your routes here
 app.use('/api/user', userRouter)
+app.use('/api/organizer', organizerRouter)

@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+//User schema contains username, email, password
 const userSchema = mongoose.Schema({
     username: String,
     email: String,
