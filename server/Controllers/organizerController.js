@@ -1,5 +1,5 @@
 import Organizer from "../Models/organizerModel.js";
-import Event from "../Models/eventModel.js";
+import Event from "../Models/eventsModel.js";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";

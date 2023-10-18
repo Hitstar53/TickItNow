@@ -1,6 +1,6 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const organizerController = require('../controllers/organizerController');
+import * as organizerController from '../Controllers/organizerController.js';
 
 // Create a new organizer
 router.post('/', organizerController.createOrganizer);
@@ -20,4 +20,4 @@ router.delete(':id', organizerController.deleteOrganizer);
 // Get events by organizer ID
 router.get(':id/events', organizerController.getEventsByOrganizerId);
 
-module.exports = router;
+export default router;
