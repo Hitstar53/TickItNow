@@ -11,6 +11,15 @@ const getEvents = async (req, res) => {
     }
 }
 
+const getEvent = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const event = Events.findById(id);
+        res.status(200).json(event);
+    } catch (error) {
+        res.status(404).json({ message: error.message });
+    }
+}
 
-export { getEvents };
+export { getEvents, getEvent };
 
