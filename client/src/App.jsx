@@ -6,6 +6,7 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from './components/home/Home';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
+import Events from './components/events/Events';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -19,7 +20,9 @@ const router = createBrowserRouter([
       { path: "signup", element: <SignUp /> },
       {
         path: "user",
-        children: [],
+        children: [
+          { path: "events", element: <Events /> },
+        ],
       },
       {
         path: "organizer",
