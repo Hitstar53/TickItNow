@@ -1,14 +1,12 @@
 // HorizontalScrollable.js
 import React, { useState } from 'react';
-import './app.css';
-import img1 from './images/img1.jpg';
-import img2 from './images/img2.jpg';
-import img3 from './images/img3.jpg';
-import img4 from './images/img4.jpg';
-
-// Import your button images
-import backBtn from './backBtn.png';
-import nextBtn from './nextBtn.png';
+import img1 from '../../../assets/images/img1.jpg';
+import img2 from '../../../assets/images/img2.jpg';
+import img3 from '../../../assets/images/img3.jpg';
+import img4 from '../../../assets/images/img4.jpg';
+import styles from './HorizontalScroll.module.css';
+import backBtn from '../../../assets/images/backBtn.png';
+import nextBtn from '../../../assets/images/nextBtn.png';
 
 const HorizontalScrollable = () => {
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -58,10 +56,10 @@ const HorizontalScrollable = () => {
                     />
                 ))}
             </div>
-            <button onClick={scrollLeft} className='backBtn'>
+            <button onClick={scrollLeft} className={styles.backBtn}>
                 <img src={backBtn} alt="Back" />
             </button>
-            <button onClick={scrollRight} className='nextBtn'>
+            <button onClick={scrollRight} className={styles.nextBtn}>
                 <img src={nextBtn} alt="Next" />
             </button>
         </div>
