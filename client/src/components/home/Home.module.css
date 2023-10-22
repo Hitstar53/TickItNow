@@ -8,6 +8,16 @@
     padding: 1rem;
 }
 
+.about {
+    width: 95%;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    column-gap: 5rem;
+    place-items: center;
+    padding: 1rem;
+}
+
 .bottomLine {
     width: 25%;
     border-bottom: 5px solid #f1356d;
@@ -21,7 +31,7 @@
     border-radius: 0.5rem;
 }
 
-.button {
+.btn {
     background-color: #f1356d;
     color: white;
     border: none;
@@ -49,4 +59,10 @@
     object-fit: cover;
     border-radius: 0.5rem;
     opacity: 0.5;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sponsorImage:hover {
+    opacity: 1;
 }

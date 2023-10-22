@@ -2,6 +2,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import styles from './Home.module.css'
 import eventImage from '../../assets/images/event.png'
+import aboutus from '../../assets/images/aboutus.jpg'
 import amazon from '../../assets/images/amazon-logo.svg'
 import cisco from '../../assets/images/cisco-logo.svg'
 import microsoft from '../../assets/images/microsoft-logo.svg'
@@ -24,7 +25,24 @@ const Home = () => {
             in crafting exceptional events tailored to your unique vision and
             preferences.
           </p>
-          <Button variant="contained" className={styles.button}>
+          <Button
+            variant="contained"
+            className={styles.btn}
+            sx={{
+              backgroundColor: "#f1356d",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "0.5rem",
+              cursor: "pointer",
+              fontSize: "0.85rem",
+              fontWeight: "bold",
+              "&:hover": {
+                backgroundColor: "#f1356d",
+                opacity: "0.8",
+              },
+            }}
+          >
             Get Started
           </Button>
         </div>
@@ -35,39 +53,60 @@ const Home = () => {
       <div className={styles.sponsors}>
         <h1 className="flex flex-col text-4xl font-black items-center">
           Our Sponsors
-          <span className={styles.bottomLine} style={{ width: '7%', marginTop: '1rem' }}></span>
+          <span
+            className={styles.bottomLine}
+            style={{ width: "7%", marginTop: "1rem" }}
+          ></span>
         </h1>
         <div className="flex justify-around items-center my-4">
-          <img 
-            src={amazon} 
-            alt="amazon" 
-            className={styles.sponsorImage}
-          />
-          <img
-            src={cisco}
-            alt="cisco"
-            className={styles.sponsorImage}
-          />
+          <img src={amazon} alt="amazon" className={styles.sponsorImage} />
+          <img src={cisco} alt="cisco" className={styles.sponsorImage} />
           <img
             src={microsoft}
             alt="microsoft"
             className={styles.sponsorImage}
           />
-          <img
-            src={paypal}
-            alt="paypal"
-            className={styles.sponsorImage}
-          />
-          <img
-            src={uber}
-            alt="uber"
-            className={styles.sponsorImage}
-          />
-          <img
-            src={cocacola}
-            alt="cocacola"
-            className={styles.sponsorImage}
-          />
+          <img src={paypal} alt="paypal" className={styles.sponsorImage} />
+          <img src={uber} alt="uber" className={styles.sponsorImage} />
+          <img src={cocacola} alt="cocacola" className={styles.sponsorImage} />
+        </div>
+      </div>
+      <div className={styles.about}>
+        <div className={styles.col2}>
+          <img src={aboutus} alt="events" className={styles.eventImage} />
+        </div>
+        <div className={styles.col1}>
+          <h1 className="flex flex-col text-4xl w-2/3 font-black static">
+            About Us
+            <span className={styles.bottomLine}></span>
+          </h1>
+          <p className="text-base my-4 opacity-75">
+            At TickItNow, we specialize in creating memorable events. With years
+            of experience, our dedicated team is committed to turning your
+            vision into reality. From weddings to corporate gatherings, we bring
+            creativity and attention to detail to every occasion. Let us make
+            your next event extraordinary.
+          </p>
+          <Button
+            variant="contained"
+            className={styles.btn}
+            sx={{
+              backgroundColor: "#f1356d",
+              color: "white",
+              border: "none",
+              padding: "0.75rem 1.5rem",
+              borderRadius: "0.5rem",
+              cursor: "pointer",
+              fontSize: "0.85rem",
+              fontWeight: "bold",
+              "&:hover": {
+                backgroundColor: "#f1356d",
+                opacity: "0.8",
+              },
+            }}
+          >
+            Read More
+          </Button>
         </div>
       </div>
     </React.Fragment>
