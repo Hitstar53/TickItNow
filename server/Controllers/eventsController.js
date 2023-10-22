@@ -3,7 +3,15 @@ import Events from "../Models/eventsModel.js";
 const getEvents = async (req, res) => {
     try {
         const events = Events.find({});
-        console.log(events);
+        // const eventObjects = events.map(event => ({
+        //     title: event.title,
+        //     description: event.description,
+        //     image: event.image,
+        //     price: event.price,
+        //     rating: event.rating,
+        //     tags: event.tags,
+        //   }));
+        console.log(events)
         res.status(200).json(events);
     } catch (error) {
         res.status(404).json({ message: error.message });

@@ -24,7 +24,7 @@ const eventsSchema = mongoose.Schema(
       type: Number
     },
     tags:{
-      type: Object,
+      type: Array,
     }
   }
 );
