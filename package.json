@@ -16,6 +16,7 @@
     "concurrently": "^8.2.1"
   },
   "dependencies": {
+    "express-async-handler": "^1.2.0",
     "nodemon": "^3.0.1"
   }
 }

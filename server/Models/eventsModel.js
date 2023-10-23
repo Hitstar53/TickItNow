@@ -12,9 +12,8 @@ const eventsSchema = mongoose.Schema(
       required: true,  
     },
     image:{
-      type: Object,
-      data: Buffer,
-      contentType: String
+      type: String,
+      required: true,
     },
     price: {
       type: Number,

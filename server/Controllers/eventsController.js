@@ -3,16 +3,7 @@ import asyncHandler from "express-async-handler";
 
 const getEvents = asyncHandler(async (req, res) => {
     try {
-        const events = Events.find({});
-        // const eventObjects = events.map(event => ({
-        //     title: event.title,
-        //     description: event.description,
-        //     image: event.image,
-        //     price: event.price,
-        //     rating: event.rating,
-        //     tags: event.tags,
-        //   }));
-        console.log(events)
+        const events = await Events.find({});
         res.status(200).json(events);
     } catch (error) {
         res.status(400).json({ message: error.message });
