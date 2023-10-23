@@ -37,6 +37,8 @@ import TrackChangesIcon from "@mui/icons-material/TrackChanges";
 import GradeRoundedIcon from "@mui/icons-material/GradeRounded";
 import EventIcon from "@mui/icons-material/Event";
 import PictureAsPdfRoundedIcon from "@mui/icons-material/PictureAsPdfRounded";
+import tickitnow from "../../assets/images/tickitnow.png";
+import { Avatar } from "@mui/material";
 
 const navItems = ["Home", "Events", "Calendar", "Dashboard"];
 
@@ -191,8 +193,13 @@ export default function NavBar(props) {
               >
                 TickItNow
               </Typography>
-              <GavelSharpIcon
-                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              <Avatar
+                src={tickitnow}
+                alt="tickitnow"
+                sx={{
+                  display: { xs: "none", md: "flex" },
+                  mr: 1,
+                }}
               />
               <Typography
                 variant="h6"

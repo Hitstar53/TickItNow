@@ -1,0 +1,68 @@
+.hero {
+    width: 95%;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 2rem;
+    place-items: center;
+    padding: 1rem;
+}
+
+.about {
+    width: 95%;
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: 1fr 1.25fr;
+    column-gap: 5rem;
+    place-items: center;
+    padding: 1rem;
+}
+
+.bottomLine {
+    width: 25%;
+    border-bottom: 5px solid #f1356d;
+    margin: 0.5rem 0;
+}
+
+.eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+}
+
+.btn {
+    background-color: #f1356d;
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.button:hover {
+    background-color: #f1356d;
+    opacity: 0.8;
+}
+
+.sponsors {
+    width: 95%;
+    margin: 2rem auto;
+    padding: 1rem;
+}
+
+.sponsorImage {
+    width: 10%;
+    height: 10%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+    opacity: 0.5;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.sponsorImage:hover {
+    opacity: 1;
+}
