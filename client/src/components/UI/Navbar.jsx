@@ -40,7 +40,32 @@ import PictureAsPdfRoundedIcon from "@mui/icons-material/PictureAsPdfRounded";
 import tickitnow from "../../assets/images/tickitnow.png";
 import { Avatar } from "@mui/material";
 
-const navItems = ["Home", "Events", "Calendar", "Dashboard"];
+const navItems = [
+  {
+    name: "Home",
+    route: "/",
+  },
+  {
+    name: "Events",
+    route: "/",
+  },
+  {
+    name: "Login",
+    route: "/",
+  },
+  {
+    name: "Signup",
+    route: "/",
+  },
+  {
+    name: "Calendar",
+    route: "/user/",
+  },
+  {
+    name: "Dashboard",
+    route: "/organiser/",
+  }
+];
 
 function ScrollTop(props) {
   const { children, window } = props;
@@ -120,6 +145,8 @@ export default function NavBar(props) {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+    const location = useLocation();
+    const navigate = useNavigate();
     return (
       <React.Fragment>
         <CssBaseline />
@@ -127,18 +154,16 @@ export default function NavBar(props) {
           <AppBar
             component="nav"
             color=""
-            sx={
-              {
-                boxShadow: "none",
-                backgroundColor: "var(--bg-color)",
-              }
-            }
+            sx={{
+              boxShadow: "none",
+              backgroundColor: "var(--bg-color)",
+            }}
           >
             <Toolbar
-              // sx={{
-              //   width: "80%",
-              //   margin: "0 auto",
-              // }}
+            // sx={{
+            //   width: "80%",
+            //   margin: "0 auto",
+            // }}
             >
               <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
@@ -170,9 +195,13 @@ export default function NavBar(props) {
                   }}
                 >
                   {navItems.map((item) => (
-                    <NavLink to={`/user/${item.toLowerCase()}`} style={{ textDecoration: "none", color: "inherit" }}>
-                      <MenuItem key={item} onClick={handleCloseNavMenu}>
-                        <Typography textAlign="center">{item}</Typography>
+                    <NavLink
+                      to={`${item.route}${item.name.toLowerCase()}`}
+                      style={{ textDecoration: "none", color: "inherit" }}
+                      key={item.name}
+                    >
+                      <MenuItem key={item.name} onClick={handleCloseNavMenu}>
+                        <Typography textAlign="center">{item.name}</Typography>
                       </MenuItem>
                     </NavLink>
                   ))}
@@ -180,15 +209,16 @@ export default function NavBar(props) {
               </Box>
               <Typography
                 variant="h5"
-                noWrap
                 component="a"
                 href="/"
+                noWrap
                 sx={{
                   display: { xs: "flex", md: "none" },
                   flexGrow: 1,
                   fontWeight: 700,
                   color: "inherit",
                   textDecoration: "none",
+                  cursor: "pointer",
                 }}
               >
                 TickItNow
@@ -203,12 +233,14 @@ export default function NavBar(props) {
               />
               <Typography
                 variant="h6"
-                component="div"
-                sx={{ 
+                component="a"
+                noWrap
+                href="/"
+                sx={{
                   flexGrow: 1,
                   fontWeight: 700,
                   fontSize: "1.5rem",
-                  display: { xs: "none", sm: "block" } 
+                  display: { xs: "none", sm: "block" },
                 }}
               >
                 TickItNow
@@ -220,11 +252,12 @@ export default function NavBar(props) {
               >
                 {navItems.map((item) => (
                   <NavLink
-                    to={`/user/${item.toLowerCase()}`}
+                    to={`${item.route}${item.name.toLowerCase()}`}
                     style={{ textDecoration: "none", color: "inherit" }}
+                    key={item.name}
                   >
                     <Link
-                      key={item}
+                      key={item.name}
                       underline="none"
                       sx={{
                         color: "#000",
@@ -232,12 +265,13 @@ export default function NavBar(props) {
                         mr: 4,
                         padding: "0.3rem 0",
                         transition: "all 0.2s ease",
+                        borderBottom: `${location.pathname === item.route+item.name.toLowerCase() ? "3px solid #000" : "none"}`,
                         "&:hover": {
                           borderBottom: "3px solid #000",
                         },
                       }}
                     >
-                      {item}
+                      {item.name}
                     </Link>
                   </NavLink>
                 ))}

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Button } from '@mui/material'
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import styles from './Home.module.css'
 import eventImage from '../../assets/images/event.png'
 import aboutus from '../../assets/images/aboutus.jpg'
@@ -9,6 +10,12 @@ import microsoft from '../../assets/images/microsoft-logo.svg'
 import paypal from '../../assets/images/paypal-logo.svg'
 import uber from '../../assets/images/uber-logo.svg'
 import cocacola from '../../assets/images/coca-cola-logo.svg'
+import event1 from '../../assets/images/event1.png'
+import event2 from '../../assets/images/event2.png'
+import event3 from '../../assets/images/event3.png'
+import event4 from '../../assets/images/event4.png'
+import event5 from '../../assets/images/event5.png'
+import event6 from '../../assets/images/event6.png'
 
 const Home = () => {
   return (
@@ -27,16 +34,18 @@ const Home = () => {
           </p>
           <Button
             variant="contained"
-            className={styles.btn}
             sx={{
               backgroundColor: "#f1356d",
               color: "white",
               border: "none",
-              padding: "0.75rem 1.5rem",
+              padding: "0.75rem 1.25rem",
               borderRadius: "0.5rem",
               cursor: "pointer",
               fontSize: "0.85rem",
               fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.25rem",
               "&:hover": {
                 backgroundColor: "#f1356d",
                 opacity: "0.8",
@@ -44,10 +53,11 @@ const Home = () => {
             }}
           >
             Get Started
+            <ArrowRightAltIcon />
           </Button>
         </div>
         <div className={styles.col2}>
-          <img src={eventImage} alt="events" className={styles.eventImage} />
+          <img src={eventImage} alt="events" className={styles.heroImage} />
         </div>
       </div>
       <div className={styles.sponsors}>
@@ -58,7 +68,7 @@ const Home = () => {
             style={{ width: "7%", marginTop: "1rem" }}
           ></span>
         </h1>
-        <div className="flex justify-around items-center my-4">
+        <div className="flex justify-between items-center m-4">
           <img src={amazon} alt="amazon" className={styles.sponsorImage} />
           <img src={cisco} alt="cisco" className={styles.sponsorImage} />
           <img
@@ -73,7 +83,7 @@ const Home = () => {
       </div>
       <div className={styles.about}>
         <div className={styles.col2}>
-          <img src={aboutus} alt="events" className={styles.eventImage} />
+          <img src={aboutus} alt="events" className={styles.heroImage} />
         </div>
         <div className={styles.col1}>
           <h1 className="flex flex-col text-4xl w-2/3 font-black static">
@@ -89,16 +99,18 @@ const Home = () => {
           </p>
           <Button
             variant="contained"
-            className={styles.btn}
             sx={{
               backgroundColor: "#f1356d",
               color: "white",
               border: "none",
-              padding: "0.75rem 1.5rem",
+              padding: "0.75rem 1.25rem",
               borderRadius: "0.5rem",
               cursor: "pointer",
               fontSize: "0.85rem",
               fontWeight: "bold",
+              display: "flex",
+              alignItems: "center",
+              gap: "0.25rem",
               "&:hover": {
                 backgroundColor: "#f1356d",
                 opacity: "0.8",
@@ -106,7 +118,79 @@ const Home = () => {
             }}
           >
             Read More
+            <ArrowRightAltIcon />
           </Button>
+        </div>
+      </div>
+      <div className={styles.trending}>
+        <h1 className="flex flex-col text-4xl font-black items-center">
+          Trending Events
+          <span
+            className={styles.bottomLine}
+            style={{ width: "7%", marginTop: "1rem" }}
+          ></span>
+        </h1>
+        <div className={styles.eventsgrid}>
+          <div className={styles.img1}>
+            <img src={event1} alt="event1" className={styles.eventImage} />
+          </div>
+          <div className={styles.img2}>
+            <img src={event2} alt="event2" className={styles.eventImage} />
+          </div>
+          <div className={styles.img3}>
+            <img src={event3} alt="event3" className={styles.eventImage} />
+          </div>
+          <div className={styles.img4}>
+            <img src={event4} alt="event4" className={styles.eventImage} />
+          </div>
+          <div className={styles.img5}>
+            <img src={event5} alt="event5" className={styles.eventImage} />
+          </div>
+          <div className={styles.img6}>
+            <img src={event6} alt="event6" className={styles.eventImage} />
+          </div>
+        </div>
+      </div>
+      <div className={styles.newsletter}>
+        <h1 className="flex flex-col text-4xl font-black items-center">
+          Subscribe to Our Newsletter
+          <span
+            className={styles.bottomLine}
+            style={{ width: "7%", marginTop: "1rem" }}
+          ></span>
+        </h1>
+        <div className={styles.subcard}>
+          <p className="text-2xl font-bold m-4">
+            Subscribe to our newsletter and stay updated with the latest trends
+            and events!
+          </p>
+          <div className={styles.subform}>
+            <input
+              type="email"
+              placeholder="Enter your email"
+            />
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "black",
+                color: "white",
+                border: "none",
+                padding: "0.75rem 1.25rem",
+                borderRadius: "0.5rem",
+                cursor: "pointer",
+                fontSize: "0.85rem",
+                fontWeight: "bold",
+                display: "flex",
+                alignItems: "center",
+                gap: "0.25rem",
+                "&:hover": {
+                  backgroundColor: "gray",
+                },
+              }}
+            >
+              Subscribe
+            </Button>
+          </div>
         </div>
       </div>
     </React.Fragment>

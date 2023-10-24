@@ -10,7 +10,7 @@
 
 .about {
     width: 95%;
-    margin: 2rem auto;
+    margin: 4rem auto;
     display: grid;
     grid-template-columns: 1fr 1.25fr;
     column-gap: 5rem;
@@ -24,33 +24,16 @@
     margin: 0.5rem 0;
 }
 
-.eventImage {
+.heroImage {
     width: 100%;
     height: 100%;
     object-fit: cover;
     border-radius: 0.5rem;
 }
 
-.btn {
-    background-color: #f1356d;
-    color: white;
-    border: none;
-    padding: 0.75rem 1.5rem;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    font-size: 0.85rem;
-    font-weight: bold;
-}
-
-.button:hover {
-    background-color: #f1356d;
-    opacity: 0.8;
-}
-
 .sponsors {
     width: 95%;
-    margin: 2rem auto;
-    padding: 1rem;
+    margin: 4rem auto;
 }
 
 .sponsorImage {
@@ -59,10 +42,113 @@
     object-fit: cover;
     border-radius: 0.5rem;
     opacity: 0.5;
-    transition: 0.3s ease-in-out;
+    transition: all 0.2s ease;
     cursor: pointer;
 }
 
 .sponsorImage:hover {
     opacity: 1;
+    transform: scale(1.075);
+}
+
+.trending {
+    width: 95%;
+    margin: 6rem auto;
+}
+
+.eventsgrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 1rem;
+    place-items: center;
+}
+
+.eventImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 1.25rem;
+    opacity: 0.75;
+    transition: all 0.2s ease;
+    cursor: pointer;
+}
+
+.eventImage:hover {
+    opacity: 1;
+    transform: scale(1.025);
+}
+
+.img1 {
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / 2;
+}
+
+.img2 {
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / 3;
+}
+
+.img3 {
+    width: 100%;
+    height: 100%;
+    grid-column: 3 / 4;
+    grid-row: 1 / 3;
+}
+
+.img4 {
+    width: 100%;
+    height: 100%;
+    grid-column: 1 / 2;
+    grid-row: 2 / 4;
+}
+
+.img5 {
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.img6 {
+    width: 100%;
+    height: 100%;
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+}
+
+.newsletter {
+    width: 95%;
+    margin: 0 auto;
+    margin-top: 8rem;
+}
+
+.subcard {
+    margin: 2rem 1rem;
+    border-radius: 1rem;
+    background-color: #f1356d;
+    color: white;
+    padding: 1rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 3rem;
+}
+
+.subform {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.subform input {
+    width: 80%;
+    height: 2.8rem;
+    border: none;
+    border-radius: 0.5rem;
+    padding: 0.5rem;
+    font-size: 1rem;
 }

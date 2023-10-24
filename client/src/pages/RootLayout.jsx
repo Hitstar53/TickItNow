@@ -29,7 +29,7 @@ const RootLayout = () => {
   }, []);
 
   return (
-    <Box sx={{ height: "100vh", background: "var(--bg-color)" }}>
+    <Box sx={{ height: "100%", background: "var(--bg-color)" }}>
       <NavBar />
       <Box
         component="main"
