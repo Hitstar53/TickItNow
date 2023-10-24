@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 //Organizer schema contains name, email, password, and one-many relationship with events
 const organizerSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },

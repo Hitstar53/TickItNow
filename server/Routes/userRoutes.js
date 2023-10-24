@@ -4,10 +4,10 @@ import {getUsers, createUser, loginUser, getUser, updateUser, deleteUser} from '
 const router = express.Router();
 
 router.get('/', getUsers);
-router.post('/', createUser);
-router.post('/login', loginUser);
+router.post('/create', createUser);
 router.get('/:id', getUser);
-router.patch('/:id', updateUser);
-router.delete('/:id', deleteUser);
+router.post('/login', loginUser);
+router.patch('/update/:id', updateUser);
+router.delete('/delete/:id', deleteUser);
 
 export default router;

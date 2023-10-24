@@ -15,8 +15,8 @@ const getUsers = async (req, res) => {
 
 const createUser = async (req, res) => {
     const user = req.body;
-    const u = User.findOne({ email: user.email });
-    if (u) {
+    const u = await User.findOne({ email: user.email });
+    if (u!=null) {
         res.status(400).json({ message: "User already exists" });
     }
     const newUser = new User(user, bcrypt.hash(user.password, 12));
@@ -32,7 +32,7 @@ const loginUser = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const user = User.findOne({ email });
+        const user = await User.findOne({ email });
         if (!user) {
             res.status(404).json({ message: "User doesn't exist" });
         }
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
 const getUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = User.findById(id);
+        const user = await User.findById(id);
         res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ message: error.message });

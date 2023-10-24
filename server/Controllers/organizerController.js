@@ -16,7 +16,7 @@ const getOrganizers = async (req, res) => {
 
 const createOrganizer = async (req, res) => {
     const organizer = req.body;
-    const u = Organizer.findOne({ email: organizer.email });
+    const u = await Organizer.findOne({ email: organizer.email });
     if (u) {
         res.status(400).json({ message: "Organizer already exists" });
     }
@@ -33,7 +33,7 @@ const loginOrganizer = async (req, res) => {
     const { email, password } = req.body;
 
     try {
-        const organizer = Organizer.findOne({ email });
+        const organizer = await Organizer.findOne({ email });
         if (!organizer) {
             res.status(404).json({ message: "Organizer doesn't exist" });
         }
@@ -52,7 +52,7 @@ const loginOrganizer = async (req, res) => {
 const getOrganizer = async (req, res) => {
     const { id } = req.params;
     try {
-        const organizer = Organizer.findById(id);
+        const organizer = await Organizer.findById(id);
         res.status(200).json(organizer);
     } catch (error) {
         res.status(404).json({ message: error.message });
