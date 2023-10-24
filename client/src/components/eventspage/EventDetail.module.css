@@ -2,7 +2,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 70vh;
+    height: 120vh;
 }
 
 .downDiv {
@@ -63,11 +63,12 @@
 .dateLocation {
     display: flex;
     padding: 10px;
+    border-bottom: 1px solid grey;
 }
 
 .location {
     margin-left: auto;
-    margin-right: 30px;
+    margin-right: 40px;
     font-size: 20px;
     opacity: 0.7;
 }
@@ -76,4 +77,30 @@
     font-size: 20px;
     margin-left: 30px;
     opacity: 0.7;
+}
+
+.aboutEvent {
+    padding: 20px;
+    font-weight: 500;
+}
+
+.artistMap {
+    display: flex;
+    padding: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.map {
+    margin-left: auto;
+    margin-right: 250px;
+    font-size: 20px;
+    opacity: 0.9;
+    font-weight: bold;
+}
+
+.artist {
+    font-size: 20px;
+    margin-left: 30px;
+    opacity: 0.9;
+    font-weight: bold;
 }
