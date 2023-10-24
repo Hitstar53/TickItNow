@@ -1,0 +1,79 @@
+.mainDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.downDiv {
+    width: 1000px;
+    border: 1px solid black;
+}
+
+.eventImage {
+    width: 1000px;
+    height: auto;
+}
+
+.otherDetails {
+    display: flex;
+    padding-bottom: 10px;
+    border-bottom: 1px solid grey;
+}
+
+.bookBtn {
+    margin-left: auto;
+    margin-right: 25px;
+    background-color: #EC5E71;
+    width: 120px;
+    color: white;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.texts {
+    margin-left: 10px;
+}
+
+.eventName {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.eventBasicDetails {
+    font-size: 15px;
+}
+
+.otherDetails2 {
+    padding: 10px;
+    font-size: 18px;
+    display: flex;
+    border-bottom: 1px solid grey;
+}
+
+.priceDetails {
+    margin-left: auto;
+    margin-right: 15px;
+}
+
+.dateLocation {
+    display: flex;
+    padding: 10px;
+}
+
+.location {
+    margin-left: auto;
+    margin-right: 30px;
+    font-size: 20px;
+    opacity: 0.7;
+}
+
+.date {
+    font-size: 20px;
+    margin-left: 30px;
+    opacity: 0.7;
+}

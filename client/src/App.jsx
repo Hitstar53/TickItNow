@@ -7,6 +7,7 @@ import Home from './components/home/Home';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Events from './components/events/Events';
+import EventsPage from './components/eventspage/EventsPage';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -22,6 +23,7 @@ const router = createBrowserRouter([
         path: "user",
         children: [
           { path: "events", element: <Events /> },
+          { path: "eventspage", element: <EventsPage /> },
         ],
       },
       {
