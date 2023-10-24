@@ -1,10 +1,29 @@
 import mongoose from "mongoose";
 
-//User schema contains username, email, password
 const userSchema = mongoose.Schema({
-    username: String,
-    email: String,
-    password: String,
+    username: {
+        type:String,
+        required: true,
+        unique: true
+    },
+    email: {
+        type:String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type:String,
+        required: true,
+        unique: true
+    },
+    events: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event',
+        price: {
+            type: Array,
+            required: true,
+        }
+    }]
 })
 
 const User = mongoose.model('User', userSchema)

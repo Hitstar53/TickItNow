@@ -16,7 +16,7 @@ const eventsSchema = mongoose.Schema(
       required: true,
     },
     price: {
-      type: Number,
+      type: Array,
       required: true,
     },
     rating:{
@@ -24,7 +24,15 @@ const eventsSchema = mongoose.Schema(
     },
     tags:{
       type: Array,
-    }
+    },
+    organizer: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Organizer'
+    },
+    registrations: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User'
+    }],
   }
 );
 
