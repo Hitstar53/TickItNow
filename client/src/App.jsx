@@ -9,6 +9,7 @@ import SignUp from './components/Auth/SignUp';
 import Events from './components/events/Events';
 import EventsPage from './components/eventspage/EventsPage';
 import './App.css';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   {
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
       { path: "events", element: <Events /> },
-      { path: "eventspage", element: <EventsPage /> },
+      { path: "events/:name", element: <EventsPage /> },
       {
         path: "user",
         children: [
@@ -41,11 +42,20 @@ const App = () => {
       fontFamily: ["Montserrat", "sans-serif"].join(","),
     },
   });
+  const queryClient = useQueryClient();
   return (
     <ThemeProvider theme={theme}>
       <RouterProvider router={router} />
     </ThemeProvider>
   );
+}
+
+function wait(duration) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve();
+    }, duration);
+  });
 }
 
 export default App

@@ -8,7 +8,7 @@ import styles from "./Signup.module.css";
 
 const SignUp = () => {
   const navigate = useNavigate();
-  const [mode, setMode] = useState("user");
+  const [mode, setMode] = useState("attendee");
   const modeHandler = () => {
     return (e) => {
       setMode(e.target.innerText.toLowerCase());
