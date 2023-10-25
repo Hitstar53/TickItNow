@@ -7,7 +7,7 @@ import Home from './components/home/Home';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Events from './components/events/Events';
-import EventsPage from './components/eventspage/EventsPage';
+import EventDetail from './components/events/EventDetail';
 import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -22,7 +22,7 @@ const router = createBrowserRouter([
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
       { path: "events", element: <Events /> },
-      { path: "events/:name", element: <EventsPage /> },
+      { path: "events/:name", element: <EventDetail /> },
       {
         path: "user",
         children: [
