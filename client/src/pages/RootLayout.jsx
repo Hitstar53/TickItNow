@@ -17,20 +17,25 @@ const RootLayout = () => {
   const [isLoggedIn, setIsLoggedIn] = React.useState(
     localStorage.getItem("isLoggedIn")
   );
+  const [role, setRole] = React.useState(localStorage.getItem("user").role);
 
   React.useEffect(() => {
-    const flag = localStorage.getItem("isLoggedIn");
-    // console.log(flag);
-    if (flag === "true") {
+    const flag1 = localStorage.getItem("isLoggedIn");
+    const flag2 = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).role
+      : null;
+    if (flag1 === "true" && (flag2 === "attendee" || flag2 === "organizer")) {
       setIsLoggedIn(true);
+      setRole(flag2);
     } else {
       setIsLoggedIn(false);
+      setRole(null);
     }
   }, []);
 
   return (
     <Box sx={{ height: "100%", background: "var(--bg-color)" }}>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} role={role} />
       <Box
         component="main"
         sx={{

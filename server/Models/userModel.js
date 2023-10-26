@@ -1,7 +1,10 @@
 import mongoose from "mongoose";
 
 const userSchema = mongoose.Schema({
-    username: {
+    role: {
+        type: String,
+        default: "attendee"
+    },ername: {
         type:String,
         required: true,
         unique: true

@@ -49,6 +49,8 @@ const navItems = [
     name: "Events",
     route: "/",
   },
+];
+const authItems = [
   {
     name: "Login",
     route: "/",
@@ -57,6 +59,8 @@ const navItems = [
     name: "Signup",
     route: "/",
   },
+];
+const userItems = [
   {
     name: "Calendar",
     route: "/user/",
@@ -251,6 +255,60 @@ export default function NavBar(props) {
                 }}
               >
                 {navItems.map((item) => (
+                  <NavLink
+                    to={`${item.route}${item.name.toLowerCase()}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    key={item.name}
+                  >
+                    <Link
+                      key={item.name}
+                      underline="none"
+                      sx={{
+                        color: "#000",
+                        fontWeight: 700,
+                        mr: 4,
+                        padding: "0.3rem 0",
+                        transition: "all 0.2s ease",
+                        borderBottom: `${location.pathname === item.route+item.name.toLowerCase() ? "3px solid #000" : "none"}`,
+                        "&:hover": {
+                          borderBottom: "3px solid #000",
+                        },
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                  </NavLink>
+                ))}
+                { props.isLoggedIn === false &&
+                  authItems.map((item) => (
+                  <NavLink
+                    to={`${item.route}${item.name.toLowerCase()}`}
+                    style={{ textDecoration: "none", color: "inherit" }}
+                    key={item.name}
+                  >
+                    <Link
+                      key={item.name}
+                      underline="none"
+                      sx={{
+                        color: "#000",
+                        fontWeight: 700,
+                        mr: 4,
+                        padding: "0.3rem 0",
+                        transition: "all 0.2s ease",
+                        borderBottom: `${location.pathname === item.route+item.name.toLowerCase() ? "3px solid #000" : "none"}`,
+                        "&:hover": {
+                          borderBottom: "3px solid #000",
+                        },
+                      }}
+                    >
+                      {item.name}
+                    </Link>
+                  </NavLink>
+                ))}
+                { props.isLoggedIn === true &&
+                  userItems.map((item) => (
+                    ( props.role === "attendee" && item.name === "Calendar" ||
+                    props.role === "organizer" && item.name === "Dashboard" ) &&
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
                     style={{ textDecoration: "none", color: "inherit" }}

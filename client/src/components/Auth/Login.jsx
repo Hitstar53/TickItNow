@@ -1,29 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Lottie from "lottie-react";
 import animationData from "../../assets/animations/login-animation.json";
 import styles from "./Login.module.css";
+import ServerUrl from "../../constants";
 
 const Login = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState({ email: "", password: "" });
+  const handleDataChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  }
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(user);
+    const loginUser = async () => {
+      const response = await fetch(`${ServerUrl}/api/user/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: user.email,
+          password: user.password,
+        }),
+      });
+      if (!response.ok) {
+        console.log("Something went wrong, please try again later");
+      }
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.result));
+        localStorage.setItem("isLoggedIn", true);
+        console.log("Personal Information Updated Successfully");
+      }
+    }
+    loginUser();
+    navigate("/home");
+  }
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginCard}>
         <div className={styles.header}>
           <h1 className={styles.title}>Welcome to TickItNow!</h1>
         </div>
-        <div className={styles.loginForm}>
+        <form className={styles.loginForm} method="POST" onSubmit={handleSubmit}>
           <input
             className={styles.input}
             type="email"
+            name="email"
             placeholder="Enter your email"
+            onChange={handleDataChange}
+            required
           />
           <input
             className={styles.input}
             type="password"
+            name="password"
             placeholder="Enter your password"
+            onChange={handleDataChange}
+            required
           />
           <div className={styles.or}>
             <hr className={styles.divider} />
@@ -45,7 +84,8 @@ const Login = () => {
           </p>
           <Button
             variant="contained"
-            onClick={() => navigate("/home")}
+            type="submit"
+            // onClick={() => navigate("/home")}
             sx={{
               backgroundColor: "#F9A826",
               color: "white",
@@ -69,7 +109,7 @@ const Login = () => {
             Login
             <EastIcon />
           </Button>
-        </div>
+        </form>
       </div>
       <div className="login-animation w-72 md:w-[25rem]">
         <Lottie animationData={animationData} />

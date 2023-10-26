@@ -30,8 +30,15 @@ const setEvent = asyncHandler(async(req,res) =>{
     const tags = req.body.tags;
     const organizer = req.body.organizer;
     const registrations = req.body.registrations;
+    const genre = req.body.genre;
+    const language = req.body.language;
+    const ageRating = req.body.ageRating;
+    const runtime = req.body.runtime;
+    const startDate = req.body.startDate;
+    const endDate = req.body.endDate;
+    const location = req.body.location;
     try {
-        const event = new Events({title:title,description:description,image:image,price:price,rating:rating,tags:tags,organizer:organizer,registrations:registrations})
+        const event = new Events({title:title,description:description,startDate:startDate,endDate:endDate,location:location,runtime:runtime,ageRating:ageRating,language:language,image:image,price:price,rating:rating,tags:tags,genre:genre,organizer:organizer,registrations:registrations})
         await event.save()
         res.status(200).json('Event Added Succesfully')
     } catch (error) {
