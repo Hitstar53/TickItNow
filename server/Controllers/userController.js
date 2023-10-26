@@ -40,7 +40,7 @@ const loginUser = async (req, res) => {
         if (!isPasswordCorrect) {
             res.status(400).json({ message: "Invalid credentials" });
         }
-        const token = jwt.sign({ email: user.email, id: user._id }, "test", { expiresIn: "1h" });
+        const token = jwt.sign({ email: user.email, id: user._id }, "test", { expiresIn: "1h" });;
         res.status(200).json({ result: user, token });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -51,7 +51,7 @@ const loginUser = async (req, res) => {
 const getUser = async (req, res) => {
     const { id } = req.params;
     try {
-        const user = await User.findById(id);
+        const user = await User.findById(id).select("-password");
         res.status(200).json(user);
     } catch (error) {
         res.status(404).json({ message: error.message });

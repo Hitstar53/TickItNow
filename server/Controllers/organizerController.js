@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 
 const getOrganizers = async (req, res) => {
     try {
-        const organizers = await Organizer.find();
+        const organizers = await Organizer.find().select("-password");
         res.status(200).json(organizers);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -52,7 +52,7 @@ const loginOrganizer = async (req, res) => {
 const getOrganizer = async (req, res) => {
     const { id } = req.params;
     try {
-        const organizer = await Organizer.findById(id);
+        const organizer = await Organizer.findById(id).select("-password");
         res.status(200).json(organizer);
     } catch (error) {
         res.status(404).json({ message: error.message });
@@ -81,7 +81,7 @@ const deleteOrganizer = async (req, res) => {
 const getEventsByOrganizerId = async (req, res) => {
     const { id } = req.params;
     try {
-        const events = await Event.find({ organizer: id });
+        const events = await Event.find({ organizer: id }).select("-password");
         res.status(200).json(events);
     } catch (error) {
         res.status(404).json({ message: error.message });
