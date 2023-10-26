@@ -54,6 +54,7 @@
     padding: 1rem 0;
     font-size: 1.3rem;
     font-weight: 700;
+    border-bottom: 1px solid #EC5E71;
 }
 
 .location {

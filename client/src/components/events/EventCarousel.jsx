@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   EffectCoverflow,
@@ -12,7 +12,8 @@ import "swiper/css/navigation";
 import "swiper/css/effect-coverflow";
 import styles from "./Events.module.css";
 
-const EventCarousel = () => {
+const EventCarousel = (props) => {
+  const [events, setEvents] = useState(props.events);
   return (
     <div
       style={{
@@ -51,15 +52,11 @@ const EventCarousel = () => {
           "--swiper-pagination-color": "#fff",
         }}
       >
-        <SwiperSlide className={styles.swiperSlide}>
-          <img src="https://source.unsplash.com/random/600x400" alt="event" />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <img src="https://source.unsplash.com/random/600x400" alt="event" />
-        </SwiperSlide>
-        <SwiperSlide className={styles.swiperSlide}>
-          <img src="https://source.unsplash.com/random/600x400" alt="event" />
-        </SwiperSlide>
+        {/* {events.map((event) => (
+          <SwiperSlide className={styles.swiperSlide}>
+            <img src={event.image} alt="event" />
+          </SwiperSlide>
+        ))} */}
         <SwiperSlide className={styles.swiperSlide}>
           <img src="https://source.unsplash.com/random/600x400" alt="event" />
         </SwiperSlide>
