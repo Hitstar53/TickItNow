@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Masonry from "@mui/lab/Masonry";
 
-export default function EventsGallery() {
+export default function EventsGallery(props) {
   const navigate = useNavigate();
+  console.log(props.events);
+  const [events, setEvents] = React.useState(props.events);
   return (
     <Box
       sx={{
@@ -15,18 +17,18 @@ export default function EventsGallery() {
       }}
     >
       <Masonry columns={3} spacing={3}>
-        {itemData.map((item, index) => (
+        {events.map((event, index) => (
           <div 
             key={index}
-            onClick={() => navigate(`/events/${item.title}`)}
+            onClick={() => navigate(`/events/${event._id}`)}
             style={{
               cursor: "pointer",
             }}
           >
             <img
-              srcSet={`${item.img}?w=162&auto=format&dpr=2 2x`}
-              src={`${item.img}?w=162&auto=format`}
-              alt={item.title}
+              srcSet={event.image}
+              src={event.image}
+              alt={event.title}
               loading="lazy"
               style={{
                 borderRadius: "1rem",
