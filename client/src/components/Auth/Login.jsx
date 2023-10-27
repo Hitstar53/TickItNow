@@ -36,10 +36,10 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(data.result));
         localStorage.setItem("isLoggedIn", true);
         console.log("Personal Information Updated Successfully");
+        navigate("/");
       }
     }
     loginUser();
-    navigate("/home");
   }
   return (
     <div className={styles.loginPage}>

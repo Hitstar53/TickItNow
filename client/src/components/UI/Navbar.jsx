@@ -142,6 +142,13 @@ HideOnScroll.propTypes = {
 };
 
 export default function NavBar(props) {
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = React.useState(
+      localStorage.getItem("isLoggedIn") === "true"
+    );
+    const [role, setRole] = React.useState(localStorage.getItem("user") ?  
+      JSON.parse(localStorage.getItem("user")).role
+      : null);
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -149,8 +156,24 @@ export default function NavBar(props) {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     const location = useLocation();
-    const navigate = useNavigate();
+    const logoutHandler = () => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      localStorage.removeItem("isLoggedIn");
+      handleClose();
+      setIsLoggedIn(false);
+      setRole(null);
+      navigate("/");
+    }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -234,6 +257,10 @@ export default function NavBar(props) {
                   display: { xs: "none", md: "flex" },
                   mr: 1,
                 }}
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
               />
               <Typography
                 variant="h6"
@@ -279,7 +306,7 @@ export default function NavBar(props) {
                     </Link>
                   </NavLink>
                 ))}
-                { props.isLoggedIn === false &&
+                { isLoggedIn === false &&
                   authItems.map((item) => (
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
@@ -305,10 +332,10 @@ export default function NavBar(props) {
                     </Link>
                   </NavLink>
                 ))}
-                { props.isLoggedIn === true &&
+                { isLoggedIn === true &&
                   userItems.map((item) => (
-                    ( props.role === "attendee" && item.name === "Calendar" ||
-                    props.role === "organizer" && item.name === "Dashboard" ) &&
+                    ( role === "attendee" && item.name === "Calendar" ||
+                    role === "organizer" && item.name === "Dashboard" ) &&
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
                     style={{ textDecoration: "none", color: "inherit" }}
@@ -334,19 +361,41 @@ export default function NavBar(props) {
                   </NavLink>
                 ))}
               </Box>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
+              { isLoggedIn === true &&
+                <IconButton
+                  color="inherit"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  <AccountCircle
+                    sx={{
+                      height: 50,
+                      width: 50,
+                    }}
+                  />
+                </IconButton>
+              }
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
               >
-                <AccountCircle
-                  sx={{
-                    height: 50,
-                    width: 50,
-                  }}
-                />
-              </IconButton>
+                <MenuItem onClick={handleClose}>
+                  { localStorage.getItem("user") ? 
+                    JSON.parse(localStorage.getItem("user")).username
+                    : null
+                  }
+                </MenuItem>
+                <MenuItem
+                  onClick={logoutHandler}
+                >Logout</MenuItem>
+              </Menu>
             </Toolbar>
           </AppBar>
         </HideOnScroll>

@@ -6,18 +6,20 @@ import { useTheme } from "@mui/material/styles";
 import { useMediaQuery } from "react-responsive";
 import NavBar from "../components/UI/Navbar";
 import Footer from "../components/UI/Footer";
-import { Outlet, useNavigation } from "react-router-dom";
+import { Outlet, useNavigate, useNavigation } from "react-router-dom";
 
 const RootLayout = () => {
   const [open, setOpen] = React.useState(true);
   const navigation = useNavigation();
+  const navigate = useNavigate();
   const theme = useTheme();
   const extractedQuery = theme.breakpoints.down("sm").substring(7);
   const isMobile = useMediaQuery({ query: extractedQuery });
   const [isLoggedIn, setIsLoggedIn] = React.useState(
-    localStorage.getItem("isLoggedIn")
+    localStorage.getItem("isLoggedIn") === "true" ? true : false
   );
-  const [role, setRole] = React.useState(localStorage.getItem("user").role);
+  const [role, setRole] = React.useState(localStorage.getItem("user") ?  JSON.parse(localStorage.getItem("user")).role
+      : null);
 
   React.useEffect(() => {
     const flag1 = localStorage.getItem("isLoggedIn");
@@ -31,7 +33,7 @@ const RootLayout = () => {
       setIsLoggedIn(false);
       setRole(null);
     }
-  }, []);
+  }, [isLoggedIn, role]);
 
   return (
     <Box sx={{ height: "100%", background: "var(--bg-color)" }}>
@@ -60,7 +62,9 @@ const RootLayout = () => {
           <Outlet />
         )}
       </Box>
-      <Footer />
+      {navigation.state !== "loading" &&
+        <Footer />
+      }
     </Box>
   );
 };

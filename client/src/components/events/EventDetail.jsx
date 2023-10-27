@@ -24,7 +24,7 @@ const EventDetail = () => {
               {event.title}
             </div>
             <div className={styles.eventBasicDetails}>
-              Comedy | Hindi | 16yrs + | 1hr 30mins
+              {event.genre} | {event.language} | {event.rating} | {event.runtime}
             </div>
           </div>
           <button className={styles.bookBtn}>Book</button>
@@ -36,22 +36,14 @@ const EventDetail = () => {
           <div className={styles.date}>
             <AiOutlineCalendar
               style={{
-                display: "inline-block",
-                verticalAlign: "middle",
-                margin: "5px",
+                fontSize: "2rem",
               }}
             />
-            Fri 29 Sept 2023 - Sat 30 Sept 2023
+            {event.startDate} - {event.endDate}
           </div>
           <div className={styles.location}>
-            <BiLocationPlus
-              style={{
-                display: "inline-block",
-                verticalAlign: "middle",
-                margin: "5px",
-              }}
-            />
-            Shanmukhnand Hall: Mumbai
+            <BiLocationPlus />
+            {event.location}
           </div>
         </div>
         <div className={styles.aboutEvent}>

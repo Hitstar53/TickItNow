@@ -66,6 +66,12 @@ const EventCarousel = (props) => {
         <SwiperSlide className={styles.swiperSlide}>
           <img src="https://source.unsplash.com/random/600x400" alt="event" />
         </SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
+          <img src="https://source.unsplash.com/random/600x400" alt="event" />
+        </SwiperSlide>
+        <SwiperSlide className={styles.swiperSlide}>
+          <img src="https://source.unsplash.com/random/600x400" alt="event" />
+        </SwiperSlide>
       </Swiper>
     </div>
   );
