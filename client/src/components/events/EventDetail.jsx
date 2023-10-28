@@ -1,36 +1,84 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
 import { useLoaderData, json } from "react-router-dom";
-import styles from "./EventDetail.module.css";
-import EventDemo from "../../assets/images/events-demo.jpg";
 import { BiLocationPlus } from "react-icons/bi";
 import { AiOutlineCalendar } from "react-icons/ai";
 import { Avatar } from "@mui/material";
+import Button from "@mui/material/Button";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import TextField from "@mui/material/TextField";
+import MultiFieldModal from "../UI/Modals/MultiFieldModal"
+import styles from "./EventDetail.module.css";
 import ServerUrl from "../../constants";
 
 const EventDetail = () => {
   const data = useLoaderData();
-  console.log(data.eventsData);
-  const { name } = useParams();
   const [event, setEvent] = useState(data.eventsData);
-    return (
+  const [openDialog, setOpenDialog] = useState(false);
+  const handleClickOpenDialog = () => {
+    setOpenDialog(true);
+  };
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+  const [newData, setNewData] = useState({});
+  const handleDataChange = (e) => {
+    setNewData({ ...newData, [e.target.name]: e.target.value });
+  };
+  const handleDataSubmit = async (e) => {
+    e.preventDefault();
+    const updateProjects = async () => {
+      const response = await fetch(`${ServerUrl}/api/student/setProjects`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: JSON.parse(localStorage.getItem("userinfo")).email,
+          name: arr[0].name,
+          duration: arr[0].duration,
+          domain: arr[0].domain,
+          techStack: arr[0].techStack,
+          team: arr[0].team,
+          description: arr[0].description,
+        }),
+      });
+      if (!response.ok) {
+        console.log("Something went wrong, please try again later");
+      }
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+      }
+    };
+    updateProjects();
+  };
+  return (
+    <React.Fragment>
       <div className={styles.mainDiv}>
         <div>
           <img src={event.image} alt="event" className={styles.eventImage} />
         </div>
         <div className={styles.otherDetails}>
-          <div className={styles.texts}>
-            <div className={styles.eventName}>
-              {event.title}
-            </div>
-            <div className={styles.eventBasicDetails}>
-              {event.genre} | {event.language} | {event.rating} | {event.runtime}
+          <div className={styles.eventName}>{event.title}</div>
+          <div className={styles.eventBasicDetails}>
+            {event.genre} | {event.language} | {event.rating} | {event.runtime}
+          </div>
+          <div className={styles.eventBook}>
+            <div className={styles.eventBookLeft}>
+              <button
+                className={styles.bookBtn}
+                onClick={handleClickOpenDialog}
+              >
+                Book Now
+              </button>
+              <div className={styles.priceDetails}>
+                {event.price[0]}/- onwards
+              </div>
             </div>
           </div>
-          <button className={styles.bookBtn}>Book</button>
-        </div>
-        <div className={styles.otherDetails2}>
-          <div className={styles.priceDetails}>{event.price[0]}/- onwards</div>
         </div>
         <div className={styles.dateLocation}>
           <div className={styles.date}>
@@ -42,7 +90,11 @@ const EventDetail = () => {
             {event.startDate} - {event.endDate}
           </div>
           <div className={styles.location}>
-            <BiLocationPlus />
+            <BiLocationPlus
+              style={{
+                fontSize: "2rem",
+              }}
+            />
             {event.location}
           </div>
         </div>
@@ -60,12 +112,32 @@ const EventDetail = () => {
               Anubhav Singh Bassi
             </div>
           </div>
-          <div className={styles.map}>
-            Map
-          </div>
+          <div className={styles.map}>Map</div>
         </div>
       </div>
-    );
+      <MultiFieldModal
+        handleDataSubmit={handleDataSubmit}
+        openDialog={openDialog}
+        handleClickOpenDialog={handleClickOpenDialog}
+        handleCloseDialog={handleCloseDialog}
+        title="Event Registration"
+        content={`Event: ${event.title}`}
+      >
+        <TextField
+          required
+          autoFocus
+          margin="dense"
+          name="name"
+          label="Name"
+          type="text"
+          fullWidth
+          variant="standard"
+          helperText="Enter your name"
+          onChange={handleDataChange}
+        />
+      </MultiFieldModal>
+    </React.Fragment>
+  );
 };
 
 export default EventDetail;

@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from "react-router-dom";
+import ServerUrl from "../../constants";
+import { useAuth } from "../../store/AuthContext";
 import { Button } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 import Lottie from "lottie-react";
@@ -14,9 +16,53 @@ const SignUp = () => {
       setMode(e.target.innerText.toLowerCase());
     };
   }
+  const { login } = useAuth();
+  const [user, setUser] = useState(
+    {
+      type: mode,
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    }
+  );
+  const handleDataChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (user.password !== user.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
+    const registerUser = async () => {
+      const response = await fetch(`${ServerUrl}/api/user/create`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          role: user.type,
+          username: user.name,
+          email: user.email,
+          password: user.password,
+        }),
+      });
+      if (!response.ok) {
+        console.log("Something went wrong, please try again later");
+      }
+      if (response.ok) {
+        const data = await response.json();
+        console.log(data);
+        login(data.token, data.result);
+        navigate("/");
+      }
+    };
+    registerUser();
+  };
   return (
     <div className={styles.loginPage}>
-      <div className={styles.loginCard}>
+      <form className={styles.loginCard} method="POST" onSubmit={handleSubmit}>
         <div className={styles.mode}>
           <button
             style={{ 
@@ -41,21 +87,37 @@ const SignUp = () => {
           <h1 className={styles.title}>Create an account on TickItNow!</h1>
         </div>
         <div className={styles.loginForm}>
-          <input className={styles.input} type="text" placeholder="Full name" />
+          <input 
+            className={styles.input} 
+            type="text" 
+            name='name'
+            onChange={handleDataChange}
+            placeholder="Full name"
+            required
+          />
           <input
             className={styles.input}
             type="email"
+            name='email'
+            onChange={handleDataChange}
             placeholder="Enter your email"
+            required
           />
           <input
             className={styles.input}
             type="password"
+            name='password'
+            onChange={handleDataChange}
             placeholder="Enter your password"
+            required
           />
           <input
             className={styles.input}
             type="password"
+            name='confirmPassword'
+            onChange={handleDataChange}
             placeholder="Confirm password"
+            required
           />
         </div>
         <div className={styles.or}>
@@ -78,7 +140,7 @@ const SignUp = () => {
         </p>
         <Button
           variant="contained"
-          onClick={() => navigate("/home")}
+          type="submit"
           sx={{
             backgroundColor: "#F9A826",
             color: "white",
@@ -102,7 +164,7 @@ const SignUp = () => {
           Sign Up
           <EastIcon />
         </Button>
-      </div>
+      </form>
       <div className="login-animation w-72 md:w-[25rem]">
         <Lottie animationData={animationData} />
       </div>

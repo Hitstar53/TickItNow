@@ -4,7 +4,8 @@ const userSchema = mongoose.Schema({
     role: {
         type: String,
         default: "attendee"
-    },ername: {
+    },
+    username: {
         type:String,
         required: true,
         unique: true

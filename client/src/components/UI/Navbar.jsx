@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useAuth } from "../../store/AuthContext";
 import PropTypes from "prop-types";
 import MediaQuery, { useMediaQuery } from "react-responsive";
 import AppBar from "@mui/material/AppBar";
@@ -10,33 +11,16 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Slide from "@mui/material/Slide";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Link from "@mui/material/Link";
-import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import GavelSharpIcon from "@mui/icons-material/GavelSharp";
-import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
-import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Fade from "@mui/material/Fade";
-import TrackChangesIcon from "@mui/icons-material/TrackChanges";
-import GradeRoundedIcon from "@mui/icons-material/GradeRounded";
-import EventIcon from "@mui/icons-material/Event";
-import PictureAsPdfRoundedIcon from "@mui/icons-material/PictureAsPdfRounded";
 import tickitnow from "../../assets/images/tickitnow.png";
 import { Avatar } from "@mui/material";
 
@@ -143,12 +127,7 @@ HideOnScroll.propTypes = {
 
 export default function NavBar(props) {
     const navigate = useNavigate();
-    const [isLoggedIn, setIsLoggedIn] = React.useState(
-      localStorage.getItem("isLoggedIn") === "true"
-    );
-    const [role, setRole] = React.useState(localStorage.getItem("user") ?  
-      JSON.parse(localStorage.getItem("user")).role
-      : null);
+    const { isLoggedIn, role, logout } = useAuth();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -166,13 +145,8 @@ export default function NavBar(props) {
     };
     const location = useLocation();
     const logoutHandler = () => {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      localStorage.removeItem("isLoggedIn");
+      logout();
       handleClose();
-      setIsLoggedIn(false);
-      setRole(null);
-      navigate("/");
     }
     return (
       <React.Fragment>

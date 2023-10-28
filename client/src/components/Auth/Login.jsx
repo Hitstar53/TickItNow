@@ -6,16 +6,17 @@ import Lottie from "lottie-react";
 import animationData from "../../assets/animations/login-animation.json";
 import styles from "./Login.module.css";
 import ServerUrl from "../../constants";
+import { useAuth } from "../../store/AuthContext";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [user, setUser] = useState({ email: "", password: "" });
   const handleDataChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   }
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(user);
     const loginUser = async () => {
       const response = await fetch(`${ServerUrl}/api/user/login`, {
         method: "POST",
@@ -32,10 +33,7 @@ const Login = () => {
       }
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.result));
-        localStorage.setItem("isLoggedIn", true);
-        console.log("Personal Information Updated Successfully");
+        login(data.token, data.result);
         navigate("/");
       }
     }
