@@ -9,6 +9,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import MultiFieldModal from "../UI/Modals/MultiFieldModal"
 import styles from "./EventDetail.module.css";
 import ServerUrl from "../../constants";

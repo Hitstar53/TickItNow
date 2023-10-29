@@ -49,7 +49,10 @@ const SignUp = () => {
         }),
       });
       if (!response.ok) {
-        console.log("Something went wrong, please try again later");
+        const data = await response.json();
+        const message = data.message || "Something went wrong, please try again later"
+        alert(message);
+        window.location.reload();
       }
       if (response.ok) {
         const data = await response.json();
