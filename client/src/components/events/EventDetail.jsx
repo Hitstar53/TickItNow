@@ -135,6 +135,25 @@ const EventDetail = () => {
           helperText="Enter your name"
           onChange={handleDataChange}
         />
+        <TextField
+          select
+          required
+          margin="dense"
+          variant="standard"
+          fullWidth
+          name="year"
+          label="Year"
+          helperText="Select your year"
+          placeholder="Select your year"
+          onChange={handleDataChange}
+          sx={{ mt: "1rem" }}
+        >
+          <MenuItem value="Winner">Winner</MenuItem>
+          <MenuItem value="2nd Place">First Runner Up</MenuItem>
+          <MenuItem value="3rd Place">Second Runner Up</MenuItem>
+          <MenuItem value="participation">Participation</MenuItem>
+          <MenuItem value="others">Others</MenuItem>
+        </TextField>
       </MultiFieldModal>
     </React.Fragment>
   );

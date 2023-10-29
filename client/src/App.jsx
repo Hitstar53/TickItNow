@@ -8,6 +8,8 @@ import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
 import Events, {loader as EventsLoader} from './components/events/Events';
 import EventDetail, {loader as EventDetailLoader} from './components/events/EventDetail';
+import Dashboard from './components/Dashboard/Dashboard';
+import Calendar from './components/Calendar/Calendar';
 import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -26,11 +28,14 @@ const router = createBrowserRouter([
       {
         path: "user",
         children: [
+          { path: "calendar", element: <Calendar /> },
         ],
       },
       {
         path: "organizer",
-        children: [],
+        children: [
+          { path: "dashboard", element: <Dashboard /> },
+        ],
       },
     ],
   },
