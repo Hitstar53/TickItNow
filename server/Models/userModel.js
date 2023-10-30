@@ -25,7 +25,11 @@ const userSchema = mongoose.Schema({
         price: {
             type: Array,
             required: true,
-        }
+            ticket:{
+                type:Number,
+                required: true
+            }
+        },
     }]
 })
 

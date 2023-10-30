@@ -15,9 +15,17 @@ const eventsSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    banner:{
+      type:String,
+      required: true
+    },
     price: {
       type: Array,
       required: true,
+      availableTickets:{
+        type:Number,
+        required: true
+      }
     },
     rating:{
       type: Number
@@ -60,7 +68,7 @@ const eventsSchema = mongoose.Schema(
     registrations: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }],
+    }]
   }
 );
 
