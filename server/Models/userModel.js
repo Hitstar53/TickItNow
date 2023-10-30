@@ -23,14 +23,6 @@ const userSchema = mongoose.Schema({
     events: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event',
-        price: {
-            type: Array,
-            required: true,
-            ticket:{
-                type:Number,
-                required: true
-            }
-        },
     }]
 })
 

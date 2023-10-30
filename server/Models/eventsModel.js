@@ -19,14 +19,16 @@ const eventsSchema = mongoose.Schema(
       type:String,
       required: true
     },
-    price: {
-      type: Array,
-      required: true,
-      availableTickets:{
-        type:Number,
-        required: true
+    tickets: [{
+      price: {
+          type: Number,
+          required: true
+      },
+      availableTickets: {
+          type: Number,
+          required: true
       }
-    },
+  }],
     rating:{
       type: Number
     },

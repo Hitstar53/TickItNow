@@ -1,6 +1,7 @@
 import Events from "../Models/eventsModel.js";
 import asyncHandler from "express-async-handler";
 import User from "../Models/userModel.js";
+import Organizer from "../Models/organizerModel.js";
 
 const getEvents = asyncHandler(async (req, res) => {
     try {
@@ -25,7 +26,7 @@ const setEvent = asyncHandler(async(req,res) =>{
     const title = req.body.title;
     const description = req.body.description;
     const image = req.body.image;
-    const price = req.body.price;
+    const tickets = req.body.tickets;
     const rating = req.body.rating;
     const tags = req.body.tags;
     const organizer = req.body.organizer;
@@ -39,8 +40,10 @@ const setEvent = asyncHandler(async(req,res) =>{
     const location = req.body.location;
     const banner = req.body.banner;
     try {
-        const event = new Events({banner:banner,title:title,description:description,startDate:startDate,endDate:endDate,location:location,runtime:runtime,ageRating:ageRating,language:language,image:image,price:price,rating:rating,tags:tags,genre:genre,organizer:organizer,registrations:registrations})
+        const event = new Events({banner:banner,title:title,description:description,startDate:startDate,endDate:endDate,location:location,runtime:runtime,ageRating:ageRating,language:language,image:image,tickets:tickets,rating:rating,tags:tags,genre:genre,organizer:organizer,registrations:registrations})
+        event.organizer = await Organizer.findById(organizer);
         await event.save()
+        Organizer.events.push(event)
         res.status(200).json('Event Added Succesfully')
     } catch (error) {
         res.status(400).json(error)
@@ -51,6 +54,7 @@ const deleteEvent = asyncHandler(async(req,res)=>{
     try {
         const id = req.params.id;
         const e = await Events.findOneAndDelete({'_id':id})
+        Organizer.events.pull(e)
         if(e==null){
             res.status(200).json('No such document present')
         }else{
@@ -76,79 +80,28 @@ const updateEvent = asyncHandler(async(req,res)=>{
     }
 })
 
+
 const registerationDetails = asyncHandler(async(req,res)=>{
     const eventId = req.params.id
     const userId = req.body.userId
-    const ticketDetails = req.body
-    //userId 
-    // price: {
-    //     type: Array,
-    //     required: true,
-    //     availableTickets:{
-    //       type:Number,
-    //       required: true
-    //     }
-    //   },
-    try{   
-        const user = await User.findById(userId);
-        if (!user) {
-        return res.status(404).json({ message: 'User not found' });
-        }
-        const event = await Event.findById(eventId);
-        if (!event) {
-        return res.status(404).json({ message: 'Event not found' });
-        }
-        const existingEventIndex = user.events.findIndex((event) => event._id.equals(eventId))
-        if (existingEventIndex !== -1) {
-            return res.status(400).json({ message: 'User already registered for this event' });
-        }
-        // Add user id to registrations field of events database
-        event.registrations.push(userId);
-        await event.save();
+    const registerationDetails = req.body.registerationDetails
 
-        // Add event and price details to user database
-        user.events.push({
-            event: eventId,
-            price: ticketDetails.price
-        });
-        await user.save();
-
-        // Update the prices of that particular event in the event Model
-        const newPriceDetails = event.price.map((priceDetail) => {
-            if (priceDetail._id.equals(ticketDetails.price._id)) {
-                return {
-                    ...priceDetail,
-                    availableTickets: priceDetail.availableTickets - ticketDetails.quantity
-                };
-            }
-            return priceDetail;
-        });
-        event.price = newPriceDetails;
-        await event.save();
-
-        res.status(200).json("Registration Successful")
-    }catch(error){
-        res.status(400).json(error)
-    }
-})
-        
-        //await Events.findByIdAndUpdate(id,{registrations:ticketDetails}) //add user id to registrations field of events database
-        //await User.findByIdAndUpdate(id,{ticketDetails}) //add event and price details to user database
-        res.status(200).json("Registration Successful")
-    }catch(error){
-        res.status(400).json(error)
-    }
-})
-
-const priceDetails = asyncHandler(async(req,res)=>{
-    const id = req.params.id
     try{
-        const event = await Events.findById(id)
-        res.status(200).json(event.price)
+        const event = await Events.findById(eventId)
+        for(let i=0;i<registerationDetails.tickets.length;i++){
+            event.tickets[i].availableTickets-=registerationDetails.tickets[i].ticketsBought
+        }
+        const user = await User.findById(userId);
+        event.registrations.push(user)
+        await event.save()
+        User.events.push(event)
+        res.status(200).json("Registration Succesfull")
     }catch(error){
         res.status(400).json(error)
     }
 })
 
-export { getEvents, getEvent, setEvent, deleteEvent, updateEvent, registerationDetails,priceDetails };
+
+
+export { getEvents, getEvent, setEvent, deleteEvent, updateEvent, registerationDetails};
 
