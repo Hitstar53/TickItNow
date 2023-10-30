@@ -20,10 +20,21 @@ const userSchema = mongoose.Schema({
         required: true,
         unique: true
     },
-    events: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Event',
-    }]
+    priceList: [{
+        eventId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Event',
+        },
+        list: [{
+            price: {
+                type: Number,
+                required: true
+            },
+            ticketsBought: {
+                type: Number,
+                required: true
+            }}],
+    }],
 })
 
 const User = mongoose.model('User', userSchema)
