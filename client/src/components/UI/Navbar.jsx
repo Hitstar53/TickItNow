@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useNavigate, useLocation, NavLink } from "react-router-dom";
+import { useAuth } from "../../store/AuthContext";
 import PropTypes from "prop-types";
 import MediaQuery, { useMediaQuery } from "react-responsive";
 import AppBar from "@mui/material/AppBar";
@@ -10,33 +11,16 @@ import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Slide from "@mui/material/Slide";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
 import Link from "@mui/material/Link";
-import Divider from "@mui/material/Divider";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import AccountCircle from "@mui/icons-material/AccountCircle";
-import GavelSharpIcon from "@mui/icons-material/GavelSharp";
-import SpaceDashboardIcon from '@mui/icons-material/SpaceDashboard';
-import EditNoteRoundedIcon from '@mui/icons-material/EditNoteRounded';
-import ChatRoundedIcon from '@mui/icons-material/ChatRounded';
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import Button from "@mui/material/Button";
 import Fab from "@mui/material/Fab";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Fade from "@mui/material/Fade";
-import TrackChangesIcon from "@mui/icons-material/TrackChanges";
-import GradeRoundedIcon from "@mui/icons-material/GradeRounded";
-import EventIcon from "@mui/icons-material/Event";
-import PictureAsPdfRoundedIcon from "@mui/icons-material/PictureAsPdfRounded";
 import tickitnow from "../../assets/images/tickitnow.png";
 import { Avatar } from "@mui/material";
 
@@ -142,6 +126,8 @@ HideOnScroll.propTypes = {
 };
 
 export default function NavBar(props) {
+    const navigate = useNavigate();
+    const { isLoggedIn, role, logout } = useAuth();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const handleOpenNavMenu = (event) => {
       setAnchorElNav(event.currentTarget);
@@ -149,8 +135,19 @@ export default function NavBar(props) {
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
+    const [anchorEl, setAnchorEl] = React.useState(null);
+    const open = Boolean(anchorEl);
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
     const location = useLocation();
-    const navigate = useNavigate();
+    const logoutHandler = () => {
+      logout();
+      handleClose();
+    }
     return (
       <React.Fragment>
         <CssBaseline />
@@ -234,6 +231,10 @@ export default function NavBar(props) {
                   display: { xs: "none", md: "flex" },
                   mr: 1,
                 }}
+                aria-controls={open ? 'basic-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                onClick={handleClick}
               />
               <Typography
                 variant="h6"
@@ -279,7 +280,7 @@ export default function NavBar(props) {
                     </Link>
                   </NavLink>
                 ))}
-                { props.isLoggedIn === false &&
+                { isLoggedIn === false &&
                   authItems.map((item) => (
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
@@ -305,10 +306,10 @@ export default function NavBar(props) {
                     </Link>
                   </NavLink>
                 ))}
-                { props.isLoggedIn === true &&
+                { isLoggedIn === true &&
                   userItems.map((item) => (
-                    ( props.role === "attendee" && item.name === "Calendar" ||
-                    props.role === "organizer" && item.name === "Dashboard" ) &&
+                    ( role === "attendee" && item.name === "Calendar" ||
+                    role === "organizer" && item.name === "Dashboard" ) &&
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
                     style={{ textDecoration: "none", color: "inherit" }}
@@ -334,19 +335,41 @@ export default function NavBar(props) {
                   </NavLink>
                 ))}
               </Box>
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="primary-search-account-menu"
-                aria-haspopup="true"
-                color="inherit"
+              { isLoggedIn === true &&
+                <IconButton
+                  color="inherit"
+                  aria-controls={open ? 'basic-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={open ? 'true' : undefined}
+                  onClick={handleClick}
+                >
+                  <AccountCircle
+                    sx={{
+                      height: 50,
+                      width: 50,
+                    }}
+                  />
+                </IconButton>
+              }
+              <Menu
+                id="basic-menu"
+                anchorEl={anchorEl}
+                open={open}
+                onClose={handleClose}
+                MenuListProps={{
+                  'aria-labelledby': 'basic-button',
+                }}
               >
-                <AccountCircle
-                  sx={{
-                    height: 50,
-                    width: 50,
-                  }}
-                />
-              </IconButton>
+                <MenuItem onClick={handleClose}>
+                  { localStorage.getItem("user") ? 
+                    JSON.parse(localStorage.getItem("user")).username
+                    : null
+                  }
+                </MenuItem>
+                <MenuItem
+                  onClick={logoutHandler}
+                >Logout</MenuItem>
+              </Menu>
             </Toolbar>
           </AppBar>
         </HideOnScroll>
