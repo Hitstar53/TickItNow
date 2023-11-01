@@ -19,6 +19,7 @@ const createOrganizer = async (req, res) => {
     const u = await Organizer.findOne({ email: organizer.email });
     if (u) {
         res.status(400).json({ message: "Organizer already exists" });
+        return;
     }
     const newUser = new Organizer(organizer, bcrypt.hash(organizer.password, 12));
     try {
