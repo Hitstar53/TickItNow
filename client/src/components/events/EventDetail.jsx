@@ -16,6 +16,7 @@ import ServerUrl from "../../constants";
 
 const EventDetail = () => {
   const data = useLoaderData();
+  console.log(data.eventsData)
   const [event, setEvent] = useState(data.eventsData);
   const [openDialog, setOpenDialog] = useState(false);
   const handleClickOpenDialog = () => {
@@ -76,7 +77,7 @@ const EventDetail = () => {
                 Book Now
               </button>
               <div className={styles.priceDetails}>
-                {event.price[0]}/- onwards
+                {event.price}/- onwards
               </div>
             </div>
           </div>

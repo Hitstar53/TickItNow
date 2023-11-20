@@ -23,6 +23,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Fade from "@mui/material/Fade";
 import tickitnow from "../../assets/images/tickitnow.png";
 import { Avatar } from "@mui/material";
+import ServerUrl from "../../constants";
 
 const navItems = [
   {
@@ -145,6 +146,29 @@ export default function NavBar(props) {
     };
     const location = useLocation();
     const logoutHandler = () => {
+      logout();
+      handleClose();
+    }
+    const handleDelete = () => {
+      const deleteUser = async () => {
+        const response = await fetch(`${ServerUrl}/api/user/delete/${JSON.parse(localStorage.getItem("user"))._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (!response.ok) {
+          console.log("Something went wrong, please try again later");
+        }
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          navigate("/");
+        }
+      }
+      deleteUser();
       logout();
       handleClose();
     }
@@ -291,14 +315,16 @@ export default function NavBar(props) {
                       key={item.name}
                       underline="none"
                       sx={{
+                        mr: 4,
                         color: "#000",
                         fontWeight: 700,
-                        mr: 4,
-                        padding: "0.3rem 0",
+                        padding: "0.6rem 1rem",
+                        borderRadius: "0.75rem",
                         transition: "all 0.2s ease",
-                        borderBottom: `${location.pathname === item.route+item.name.toLowerCase() ? "3px solid #000" : "none"}`,
+                        backgroundColor: `${location.pathname === item.route+item.name.toLowerCase() ? "#000" : "#666"}`,
+                        color: "#fff",
                         "&:hover": {
-                          borderBottom: "3px solid #000",
+                          backgroundColor: "#000",
                         },
                       }}
                     >
@@ -369,6 +395,9 @@ export default function NavBar(props) {
                 <MenuItem
                   onClick={logoutHandler}
                 >Logout</MenuItem>
+                <MenuItem onClick={handleDelete}>
+                  Delete Account
+                </MenuItem>
               </Menu>
             </Toolbar>
           </AppBar>

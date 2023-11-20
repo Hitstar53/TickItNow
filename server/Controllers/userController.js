@@ -22,8 +22,12 @@ const createUser = async (req, res) => {
     }
     const newUser = new User(user, bcrypt.hash(user.password, 12));
     try {
-        await newUser.save();
-        res.status(201).json(newUser);
+      await newUser.save();
+      const token = jwt.sign({ email: user.email, id: user._id }, "test", {
+        expiresIn: "1h",
+      });
+      console.log(token)
+      res.status(201).json({ result: newUser, token });
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
@@ -36,12 +40,14 @@ const loginUser = async (req, res) => {
         const user = await User.findOne({ email });
         if (!user) {
             res.status(404).json({ message: "User doesn't exist" });
+            return;
         }
         const isPasswordCorrect = bcrypt.compare(password, user.password);
         if (!isPasswordCorrect) {
             res.status(400).json({ message: "Invalid credentials" });
+            return;
         }
-        const token = jwt.sign({ email: user.email, id: user._id }, "test", { expiresIn: "1h" });;
+        const token = jwt.sign({ email: user.email, id: user._id }, "test", { expiresIn: "1h" });
         res.status(200).json({ result: user, token });
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -71,6 +77,7 @@ const updateUser = async (req, res) => {
 
 const deleteUser = async (req, res) => {
     const { id } = req.params;
+    console.log(id);
     if (!mongoose.Types.ObjectId.isValid(id)) {
         res.status(404).json({ message: "No user with that id" });
     }

@@ -29,10 +29,13 @@ const Login = () => {
         }),
       });
       if (!response.ok) {
-        console.log("Something went wrong, please try again later");
+        const data = await response.json();
+        alert(data.message);
+        window.location.reload();
       }
       if (response.ok) {
         const data = await response.json();
+        console.log(data);
         login(data.token, data.result);
         navigate("/");
       }
