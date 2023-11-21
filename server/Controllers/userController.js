@@ -2,6 +2,7 @@ import User from "../Models/userModel.js";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Events from "../Models/eventsModel.js";
 
 
 const getUsers = async (req, res) => {
@@ -85,6 +86,30 @@ const deleteUser = async (req, res) => {
     res.status(200).json({ message: "User deleted successfully" });
 }
 
+const getCalendarEvents = async (req, res) => {
+    const startDate = new Date(req.body.startDate);
+    const endDate = new Date(req.body.endDate);
+    const userId = req.params.id
+    try {
+        const user = await User.findById(userId)
+        const events = []
+        for(let k=0;k<user.priceList.length;k++){
+            const event = await Events.findById(user.priceList[k].eventId)
+            events.push(event)
+        }
+        
+        console.log(events)
+        const calendarEvents = events.filter((event) => {
+            let eventStartDate = new Date(event.startDate);
+            let eventEndDate = new Date(event.endDate);
+            console.log(eventStartDate,eventEndDate,startDate,endDate,event.startDate,event.endDate)
+            return (eventStartDate <= endDate && eventEndDate >= startDate) || (eventEndDate >= startDate && eventStartDate <= endDate) ||(eventStartDate >= startDate && eventEndDate <= endDate)
+        })
+        res.status(200).json(calendarEvents)
+    } catch (error) {
+        res.status(400).json(error)
+    }
+  };
 
-export { getUsers, createUser, loginUser, getUser, updateUser, deleteUser };
+export { getUsers, createUser, loginUser, getUser, updateUser, deleteUser, getCalendarEvents};
 
