@@ -23,7 +23,8 @@ const getEvent = asyncHandler(async (req, res) => {
 });
 
 const setEvent = asyncHandler(async (req, res) => {
-    const organizer = req.body.organizer;
+    const organizer = req.params.id;
+    console.log(organizer);
   try {
     const event = new Events({
       banner: req.body.banner,
@@ -42,9 +43,13 @@ const setEvent = asyncHandler(async (req, res) => {
       genre: req.body.genre,
       organizer: organizer,
       registrations: req.body.registrations,
+      artist: req.body.artist,
+      latitude: req.body.latitude,
+      longitude: req.body.longitude
     });
     const org = await Organizer.findById(organizer);
-    event.organizer = org;
+    console.log(org);
+    // event.organizer = org;
     await event.save();
     org.events.push(event);
     await org.save();
@@ -97,6 +102,9 @@ const registrationDetails = asyncHandler(async (req, res) => {
     const event = await Events.findById(eventId);
     console.log("here");
     for (let i = 0; i < registrationDetails.tickets.length; i++) {
+      if(event.tickets[i].availableTickets<registrationDetails.tickets[i].ticketsBought){
+        res.status(400).json("Tickets not available");
+      }
       event.tickets[i].availableTickets -=registrationDetails.tickets[i].ticketsBought;
     }
     const user = await User.findById(userId);
@@ -114,6 +122,8 @@ const registrationDetails = asyncHandler(async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+
 
 export {
   getEvents,

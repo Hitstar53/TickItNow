@@ -57,7 +57,6 @@ const SignUp = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
-        login(data.token, data.result);
         navigate("/");
       }
     };

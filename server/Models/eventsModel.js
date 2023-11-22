@@ -61,7 +61,15 @@ const eventsSchema = mongoose.Schema(
     },
     location:{
       type: String,
-
+    },
+    latitude:{
+      type:String
+    },
+    longitude:{
+      type:String
+    },
+    artist:{
+      type:Array
     },
     organizer: {
       type: mongoose.Schema.Types.ObjectId,
