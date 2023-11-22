@@ -6,10 +6,11 @@ import ErrorPage from "./pages/ErrorPage";
 import Home from './components/home/Home';
 import Login from './components/Auth/Login';
 import SignUp from './components/Auth/SignUp';
-import Events, {loader as EventsLoader} from './components/events/Events';
-import EventDetail, {loader as EventDetailLoader} from './components/events/EventDetail';
+import Events, { loader as EventsLoader } from './components/events/Events';
+import EventDetail, { loader as EventDetailLoader } from './components/events/EventDetail';
 import Dashboard from './components/Dashboard/Dashboard';
 import Calendar from './components/Calendar/Calendar';
+import EventManager from './components/eventManager/EventManager';
 import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { path: "home", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
+      { path: "eventmanager", element: <EventManager /> },
       { path: "events", element: <Events />, loader: EventsLoader },
       { path: "events/:name", element: <EventDetail />, loader: EventDetailLoader },
       {
