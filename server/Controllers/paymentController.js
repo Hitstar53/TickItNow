@@ -1,7 +1,7 @@
 import Razorpay  from 'razorpay';
 import User from '../Models/userModel.js';
 import Organizer from '../Models/organizerModel.js';
-import Event from '../Models/eventModel.js';
+import Event from '../Models/eventsModel.js';
 
 // Initialize Razorpay client
 const razorpay = new Razorpay({

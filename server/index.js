@@ -6,7 +6,7 @@ import dotenv from 'dotenv'
 import userRouter from './Routes/userRoutes.js'
 import eventsRouter from './Routes/eventsRoutes.js'
 import organizerRouter from './Routes/organizerRoutes.js'
-// import paymentRouter from './Routes/paymentRoutes.js'
+import paymentRouter from './Routes/paymentRoutes.js'
 
 /* setting up server */
 const app = express()
@@ -28,4 +28,4 @@ mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopol
 app.use('/api/user', userRouter)
 app.use('/api/events', eventsRouter)
 app.use('/api/organizer', organizerRouter)
-// app.use('/api/payment', paymentRouter)
+app.use('/api/payment', paymentRouter)

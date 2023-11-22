@@ -8,7 +8,7 @@ import{
 } from '../Controllers/paymentController.js';
 const router = express.Router();
 
-router.post('/payment', makePayment);
+router.post('/', makePayment);
 router.post('/payment/cancel', cancelPayment);
 router.put('/updateUser', updateUserDatabase);
 router.put('/updateOrganizer', updateOrganizerDatabase);
