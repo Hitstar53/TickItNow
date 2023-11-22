@@ -1,4 +1,5 @@
 import express from 'express';
+const router = express.Router();
 import{
     makePayment,
     cancelPayment,
@@ -6,7 +7,6 @@ import{
     updateOrganizerDatabase,
     updateEventDatabase,
 } from '../Controllers/paymentController.js';
-const router = express.Router();
 
 router.post('/', makePayment);
 router.post('/payment/cancel', cancelPayment);
