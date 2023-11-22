@@ -5,8 +5,8 @@ import Event from '../Models/eventModel.js';
 
 // Initialize Razorpay client
 const razorpay = new Razorpay({
-  key_id: 'YOUR_RAZORPAY_KEY_ID',
-  key_secret: 'YOUR_RAZORPAY_KEY_SECRET',
+  key_id: 'rzp_test_9eSrSMNCJXPlQ2',
+  key_secret: 'nhSSk3HMgWrXW9O3rGtq6X63',
 });
 
 // Function to make a payment
