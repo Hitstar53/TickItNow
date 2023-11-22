@@ -16,6 +16,6 @@ router.post('/login', loginUser);
 router.patch('/update/:id', updateUser);
 router.delete('/delete/:id', deleteUser);
 router.post("/:id/getCalendarEvents", getCalendarEvents);
-router.post("/makePayment", makePayment);
+router.post("/makePayment1", makePayment);
 
 export default router;

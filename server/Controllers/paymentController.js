@@ -22,6 +22,8 @@ const makePayment = async (req, res) => {
     });
 
     // Save the order details in the user's database
+    console.log(order);
+    console.log(userId);
     await User.findByIdAndUpdate(userId, { $push: { orders: order } });
 
     res.status(200).json({ order });
