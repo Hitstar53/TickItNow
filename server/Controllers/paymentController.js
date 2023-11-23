@@ -12,26 +12,27 @@ const razorpayInstance = new Razorpay({
 // Function to make a payment
 const makePayment = async(req,res)=>{
   try {
-      const amount = req.body.amount*100
+      const numberOfTickets = req.body.numberOfTickets;
+      const user_id = req.body.user_id;
+      const event_id = req.body.event_id;
+      const amount = Event.findById(event_id).select('tickets.price') * numberOfTickets;
       const options = {
-          amount: amount,
-          currency: 'INR',
-          receipt: 'razorUser@gmail.com'
+        amount: amount,
+        currency: 'INR',
+        receipt: 'kaif.sayyad@spit.ac.in'
       }
 
       razorpayInstance.orders.create(options, 
         (err, order)=>{
             if(!err){
                 res.status(200).send({
-                    success:true,
-                    msg:'Order Created',
-                    order_id:order.id,
-                    amount:amount,
-                    product_name:req.body.name,
-                    description:req.body.description,
-                    contact:"8567345632",
-                    name: "Sandeep Sharma",
-                    email: "sandeep@gmail.com"
+                  success:true,
+                  msg:'Order Created',
+                  order_id:order.id,
+                  amount:amount,
+                  name: User.findById(user_id).select.username,
+                  email: User.findById(user_id).select.email,
+                  event_id: event_id
                 });
             }
             else{
