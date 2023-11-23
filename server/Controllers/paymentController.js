@@ -10,26 +10,39 @@ const razorpay = new Razorpay({
 });
 
 // Function to make a payment
-const makePayment = async (req, res) => {
+const makePayment = async(req,res)=>{
   try {
-    const { amount, currency, orderId, userId } = req.body;
+      const amount = req.body.amount*100
+      const options = {
+          amount: amount,
+          currency: 'INR',
+          receipt: 'razorUser@gmail.com'
+      }
 
-    // Create a Razorpay order
-    const order = await razorpay.orders.create({
-      amount,
-      currency,
-      receipt: orderId,
-    });
+      razorpayInstance.orders.create(options, 
+        (err, order)=>{
+            if(!err){
+                res.status(200).send({
+                    success:true,
+                    msg:'Order Created',
+                    order_id:order.id,
+                    amount:amount,
+                    key_id:rzp_test_9eSrSMNCJXPlQ2,
+                    product_name:req.body.name,
+                    description:req.body.description,
+                    contact:"8567345632",
+                    name: "Sandeep Sharma",
+                    email: "sandeep@gmail.com"
+                });
+            }
+            else{
+                res.status(400).send({success:false,msg:'Something went wrong!'});
+            }
+        }
+      );
 
-    // Save the order details in the user's database
-    console.log(order);
-    console.log(userId);
-    await User.findByIdAndUpdate(userId, { $push: { orders: order } });
-
-    res.status(200).json({ order });
   } catch (error) {
-    console.log("hehehehhe");
-    res.status(500).json({ error: error.message });
+    console.log(error.message);
   }
 };
 
