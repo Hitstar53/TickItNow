@@ -27,7 +27,6 @@ const makePayment = async(req,res)=>{
                     msg:'Order Created',
                     order_id:order.id,
                     amount:amount,
-                    key_id:rzp_test_9eSrSMNCJXPlQ2,
                     product_name:req.body.name,
                     description:req.body.description,
                     contact:"8567345632",
