@@ -5,6 +5,7 @@ import Masonry from "@mui/lab/Masonry";
 
 export default function EventsGallery(props) {
   const navigate = useNavigate();
+  console.log(props.events);
   const [events, setEvents] = React.useState(props.events);
   return (
     <Box

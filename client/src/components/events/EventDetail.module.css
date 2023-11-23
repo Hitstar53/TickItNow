@@ -94,10 +94,25 @@
     text-align: justify;
 }
 
-.aboutEventHeading {
+.aboutEventHeading,
+.artistHeading {
     font-size: 1.5rem;
     font-weight: 700;
     padding-bottom: 1rem;
+}
+
+.artistName {
+    padding: 1rem 1.75rem;
+    font-size: 1rem;
+    border: 3px solid #EC5E71;
+    border-radius: 100vw;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.artistName:hover {
+    background-color: #EC5E71;
+    color: white;
 }
 
 .artistMap {

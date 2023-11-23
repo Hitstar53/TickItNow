@@ -52,12 +52,12 @@ const EventCarousel = (props) => {
           "--swiper-pagination-color": "#fff",
         }}
       >
-        {/* {events.map((event) => (
+        {events.map((event) => (
           <SwiperSlide className={styles.swiperSlide}>
-            <img src={event.image} alt="event" />
+            <img src={event.banner} alt="event" />
           </SwiperSlide>
-        ))} */}
-        <SwiperSlide className={styles.swiperSlide}>
+        ))}
+        {/* <SwiperSlide className={styles.swiperSlide}>
           <img src="https://source.unsplash.com/random/600x400" alt="event" />
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
@@ -71,7 +71,7 @@ const EventCarousel = (props) => {
         </SwiperSlide>
         <SwiperSlide className={styles.swiperSlide}>
           <img src="https://source.unsplash.com/random/600x400" alt="event" />
-        </SwiperSlide>
+        </SwiperSlide> */}
       </Swiper>
     </div>
   );

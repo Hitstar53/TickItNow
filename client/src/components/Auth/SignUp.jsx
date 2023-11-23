@@ -14,6 +14,7 @@ const SignUp = () => {
   const modeHandler = () => {
     return (e) => {
       setMode(e.target.innerText.toLowerCase());
+      setUser({ ...user, type: e.target.innerText.toLowerCase() });
     };
   }
   const { login } = useAuth();
@@ -35,6 +36,7 @@ const SignUp = () => {
       alert("Passwords do not match");
       return;
     }
+    console.log(user);
     const registerUser = async () => {
       const response = await fetch(`${ServerUrl}/api/user/create`, {
         method: "POST",

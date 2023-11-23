@@ -33,10 +33,9 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "organizer",
+        path: "organiser",
         children: [
-          { path: "dashboard", element: <Dashboard /> },
-          { path: "eventmanager", element: <EventManager /> },
+          { path: "dashboard", element: <EventManager /> },
         ],
       },
     ],

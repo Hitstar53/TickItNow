@@ -77,7 +77,7 @@ const EventDetail = () => {
                 Book Now
               </button>
               <div className={styles.priceDetails}>
-                {event.price}/- onwards
+                ₹{event.tickets[0].price} /- onwards
               </div>
             </div>
           </div>
@@ -107,14 +107,16 @@ const EventDetail = () => {
         </div>
         <div className={styles.artistMap}>
           <div className={styles.artist}>
-            Artist
-            <br />
-            <div className="flex items-center gap-10">
-              <Avatar sx={{ width: 200, height: 200 }} />
-              Anubhav Singh Bassi
+            <span className={styles.artistHeading}>Artists</span>
+            <div className="flex items-center gap-5 mt-3">
+              {event.artist.map((artist) => (
+                <div className={styles.artistName}>{artist}</div>
+              ))}
             </div>
           </div>
-          <div className={styles.map}>Map</div>
+          <div className={styles.map}>
+            <span className={styles.artistHeading}>Map</span>
+          </div>
         </div>
       </div>
       <MultiFieldModal
