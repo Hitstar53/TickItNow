@@ -19,7 +19,7 @@ const eventsSchema = mongoose.Schema(
       type:String,
       required: true
     },
-    tickets: [{
+    tickets: {
       price: {
           type: Number,
           required: true
@@ -28,7 +28,7 @@ const eventsSchema = mongoose.Schema(
           type: Number,
           required: true
       }
-  }],
+  },
 
     genre:{
       type: String,
