@@ -4,7 +4,7 @@ import Organizer from '../Models/organizerModel.js';
 import Event from '../Models/eventsModel.js';
 
 // Initialize Razorpay client
-const razorpay = new Razorpay({
+const razorpayInstance = new Razorpay({
   key_id: 'rzp_test_9eSrSMNCJXPlQ2',
   key_secret: 'nhSSk3HMgWrXW9O3rGtq6X63',
 });
