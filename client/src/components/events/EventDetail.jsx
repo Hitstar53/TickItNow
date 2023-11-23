@@ -31,20 +31,18 @@ const EventDetail = () => {
   };
   const handleDataSubmit = async (e) => {
     e.preventDefault();
-    const updateProjects = async () => {
-      const response = await fetch(`${ServerUrl}/api/student/setProjects`, {
+    console.log(event._id)
+    console.log(newData);
+    const makeRegistration = async () => {
+      const response = await fetch(`${ServerUrl}/api/user/makePayment1`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: JSON.parse(localStorage.getItem("userinfo")).email,
-          name: arr[0].name,
-          duration: arr[0].duration,
-          domain: arr[0].domain,
-          techStack: arr[0].techStack,
-          team: arr[0].team,
-          description: arr[0].description,
+          user_id: JSON.parse(localStorage.getItem("user"))._id,
+          event_id: event._id,
+          numberOfTickets: newData.tickets,
         }),
       });
       if (!response.ok) {
@@ -55,7 +53,7 @@ const EventDetail = () => {
         console.log(data);
       }
     };
-    updateProjects();
+    makeRegistration();
   };
   return (
     <React.Fragment>
@@ -77,7 +75,7 @@ const EventDetail = () => {
                 Book Now
               </button>
               <div className={styles.priceDetails}>
-                ₹{event.tickets[0].price} /- onwards
+                ₹{event.tickets.price} /- onwards
               </div>
             </div>
           </div>
@@ -109,9 +107,11 @@ const EventDetail = () => {
           <div className={styles.artist}>
             <span className={styles.artistHeading}>Artists</span>
             <div className="flex items-center gap-5 mt-3">
-              {event.artist.map((artist) => (
-                <div className={styles.artistName}>{artist}</div>
-              ))}
+              {
+                event.artist.split(",").map((artist) => (
+                  <div className={styles.artistName}>{artist}</div>
+                ))
+              }
             </div>
           </div>
           <div className={styles.map}>
@@ -131,33 +131,14 @@ const EventDetail = () => {
           required
           autoFocus
           margin="dense"
-          name="name"
-          label="Name"
+          name="tickets"
+          label="Number of Tickets"
           type="text"
           fullWidth
           variant="standard"
-          helperText="Enter your name"
+          helperText={`Available Tickets: ${event.tickets.availableTickets}`}
           onChange={handleDataChange}
         />
-        <TextField
-          select
-          required
-          margin="dense"
-          variant="standard"
-          fullWidth
-          name="year"
-          label="Year"
-          helperText="Select your year"
-          placeholder="Select your year"
-          onChange={handleDataChange}
-          sx={{ mt: "1rem" }}
-        >
-          <MenuItem value="Winner">Winner</MenuItem>
-          <MenuItem value="2nd Place">First Runner Up</MenuItem>
-          <MenuItem value="3rd Place">Second Runner Up</MenuItem>
-          <MenuItem value="participation">Participation</MenuItem>
-          <MenuItem value="others">Others</MenuItem>
-        </TextField>
       </MultiFieldModal>
     </React.Fragment>
   );

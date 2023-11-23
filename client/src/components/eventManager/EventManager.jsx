@@ -6,6 +6,19 @@ import styles from "./EventManager.module.css";
 import Card from "./Card.jsx";
 import ServerUrl from "../../constants";
 
+function convertToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const fileReader = new FileReader();
+    fileReader.readAsDataURL(file);
+    fileReader.onload = () => {
+      resolve(fileReader.result);
+    };
+    fileReader.onerror = () => {
+      reject(error);
+    };
+  });
+}
+
 export default function EventManager() {
     const data = useLoaderData();
     const [openDialog, setOpenDialog] = useState(false);
@@ -16,12 +29,22 @@ export default function EventManager() {
       setOpenDialog(false);
     };
     const [newData, setNewData] = useState({});
+    const organizerId = JSON.parse(localStorage.getItem("user"))._id;
     const handleDataChange = (e) => {
       setNewData({ ...newData, [e.target.name]: e.target.value });
     };
-    const organizerId = JSON.parse(localStorage.getItem("user"))._id;
     const handleDataSubmit = async (e) => {
       e.preventDefault();
+      const file = e.target.image.files[0]
+      const base64 = await convertToBase64(file);
+      setNewData(
+        (prev) => ({ ...prev, image: base64 })
+      )
+      const banner = e.target.banner.files[0]
+      const bannerBase64 = await convertToBase64(banner);
+      setNewData(
+        (prev) => ({ ...prev, banner: bannerBase64 })
+      );
       const addEvent = async () => {
         const response = await fetch(`${ServerUrl}/api/events/${organizerId}/setEvent`, {
           method: "PUT",
@@ -33,17 +56,14 @@ export default function EventManager() {
             description: newData.description,
             image: newData.image,
             banner: newData.banner,
-            tickets: newData.ticket,
+            tickets: { price: newData.ticket, availableTickets: '5000' },
             genre: newData.genre,
             language: newData.language,
             ageRating: newData.agerating,
             runtime: newData.runtime,
             startDate: newData.startdate,
             endDate: newData.enddate,
-            registration: [],
-            tags: [],
-            rating: 4.5,
-            artist: newData.artist.split(","),
+            artist: newData.artist,
             latitude: newData.loccords.split(",")[0],
             longitude: newData.loccords.split(",")[1],
             location: newData.location,
@@ -132,10 +152,10 @@ export default function EventManager() {
             margin="dense"
             name="image"
             label="Image Link"
-            type="text"
+            type="file"
             fullWidth
             variant="standard"
-            helperText="Enter your event image link"
+            helperText="Enter your event image"
             onChange={handleDataChange}
           />
           <TextField
@@ -144,7 +164,7 @@ export default function EventManager() {
             margin="dense"
             name="banner"
             label="Banner Link"
-            type="text"
+            type="file"
             fullWidth
             variant="standard"
             helperText="Enter your event banner link"
@@ -273,4 +293,23 @@ export default function EventManager() {
         </MultiFieldModal>
       </div>
     );
+}
+
+export async function loader() {
+  const response = await fetch(`${ServerUrl}/api/events`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+  if (!response.ok) {
+    throw json(
+      { message: "Could not fetch events information" },
+      { status: 422 }
+    );
+  }
+  if (response.ok) {
+    const eventsData = await response.json();
+    return { eventsData };
+  }
 }

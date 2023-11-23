@@ -46,6 +46,7 @@ const setEvent = asyncHandler(async (req, res) => {
       latitude: req.body.latitude,
       longitude: req.body.longitude
     });
+    console.log(event)
     const org = await Organizer.findById(organizer);
     console.log(org);
     // event.organizer = org;

@@ -335,7 +335,7 @@ export default function NavBar(props) {
                 { isLoggedIn === true &&
                   userItems.map((item) => (
                     ( role === "attendee" && item.name === "Calendar" ||
-                    role === "organiser" && item.name === "Dashboard" ) &&
+                    role === "organizer" && item.name === "Dashboard" ) &&
                   <NavLink
                     to={`${item.route}${item.name.toLowerCase()}`}
                     style={{ textDecoration: "none", color: "inherit" }}

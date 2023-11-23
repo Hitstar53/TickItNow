@@ -18,18 +18,33 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const loginUser = async () => {
-      const response = await fetch(`${ServerUrl}/api/user/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: user.email,
-          password: user.password,
-        }),
-      });
+      let response;
+      if (user.type === "organizer") {
+        response = await fetch(`${ServerUrl}/api/organizer/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            password: user.password,
+          }),
+        });
+      } else {
+        response = await fetch(`${ServerUrl}/api/user/login`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: user.email,
+            password: user.password,
+          }),
+        });
+      }
       if (!response.ok) {
         const data = await response.json();
+        console.log(data.message)
         alert(data.message);
         window.location.reload();
       }
@@ -49,6 +64,14 @@ const Login = () => {
           <h1 className={styles.title}>Welcome to TickItNow!</h1>
         </div>
         <form className={styles.loginForm} method="POST" onSubmit={handleSubmit}>
+          <input
+            className={styles.input}
+            type="text"
+            name="type"
+            placeholder="Enter your role"
+            onChange={handleDataChange}
+            required
+          />
           <input
             className={styles.input}
             type="email"

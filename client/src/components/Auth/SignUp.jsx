@@ -36,20 +36,36 @@ const SignUp = () => {
       alert("Passwords do not match");
       return;
     }
-    console.log(user);
     const registerUser = async () => {
-      const response = await fetch(`${ServerUrl}/api/user/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          role: user.type,
-          username: user.name,
-          email: user.email,
-          password: user.password,
-        }),
-      });
+      let response;
+      if (user.type === "organizer") {
+        response = await fetch(`${ServerUrl}/api/organizer/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            role: user.type,
+            username: user.name,
+            email: user.email,
+            password: user.password,
+          }),
+        });
+      }
+      else {
+        response = await fetch(`${ServerUrl}/api/user/create`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            role: user.type,
+            username: user.name,
+            email: user.email,
+            password: user.password,
+          }),
+        });
+      }
       if (!response.ok) {
         const data = await response.json();
         const message = data.message || "Something went wrong, please try again later"
@@ -79,12 +95,12 @@ const SignUp = () => {
           </button>
           <button
             style={{ 
-              backgroundColor: mode === "organiser" ? "#F9A826" : "white",
-              color: mode === "organiser" ? "white" : "black",
+              backgroundColor: mode === "organizer" ? "#F9A826" : "white",
+              color: mode === "organizer" ? "white" : "black",
             }}
             onClick={modeHandler()}
           >
-            Organiser
+            Organizer
           </button>
         </div>
         <div className={styles.header}>
