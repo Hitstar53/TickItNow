@@ -29,12 +29,7 @@ const eventsSchema = mongoose.Schema(
           required: true
       }
   }],
-    rating:{
-      type: Number
-    },
-    tags:{
-      type: Array,
-    },
+
     genre:{
       type: String,
 
@@ -69,7 +64,7 @@ const eventsSchema = mongoose.Schema(
       type:String
     },
     artist:{
-      type:Array
+      type:String
     },
     organizer: {
       type: mongoose.Schema.Types.ObjectId,

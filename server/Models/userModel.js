@@ -26,7 +26,7 @@ const userSchema = mongoose.Schema({
                 type: mongoose.Schema.Types.ObjectId,
                 ref: 'Event',
             },
-            list: [{
+            list: {
                 price: {
                     type: Number,
                     required: true
@@ -34,8 +34,8 @@ const userSchema = mongoose.Schema({
                 ticketsBought: {
                     type: Number,
                     required: true
-                }
-            }],
+                }  
+            },
         }],
         orders: [{
             orderId: {

@@ -63,10 +63,10 @@ const cancelPayment = async (req, res) => {
 };
 
 // Function to update user's database
-const updateUserDatabase = async (userId, paymentDetails) => {
+const updateUserDatabase = async (userId, priceList) => {
   try {
     // Update the user's database with payment details
-    await User.findByIdAndUpdate(userId, { $push: { payments: paymentDetails } });
+    await User.findByIdAndUpdate(userId, { $push: { priceList: this.priceList } });
   } catch (error) {
     console.error(error);
   }
@@ -99,3 +99,4 @@ export{
   updateOrganizerDatabase,
   updateEventDatabase,
 };
+ 

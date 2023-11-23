@@ -2,6 +2,7 @@ import Events from "../Models/eventsModel.js";
 import asyncHandler from "express-async-handler";
 import User from "../Models/userModel.js";
 import Organizer from "../Models/organizerModel.js";
+import { makePayment } from "./paymentController.js";
 
 const getEvents = asyncHandler(async (req, res) => {
   try {
@@ -38,8 +39,6 @@ const setEvent = asyncHandler(async (req, res) => {
       language: req.body.language,
       image: req.body.image,
       tickets: req.body.tickets,
-      rating: req.body.rating,
-      tags: req.body.tags,
       genre: req.body.genre,
       organizer: organizer,
       registrations: req.body.registrations,
@@ -102,10 +101,10 @@ const registrationDetails = asyncHandler(async (req, res) => {
     const event = await Events.findById(eventId);
     console.log("here");
     for (let i = 0; i < registrationDetails.tickets.length; i++) {
-      if(event.tickets[i].availableTickets<registrationDetails.tickets[i].ticketsBought){
+      if(event.tickets.availableTickets<registrationDetails.tickets.ticketsBought){
         res.status(400).json("Tickets not available");
       }
-      event.tickets[i].availableTickets -=registrationDetails.tickets[i].ticketsBought;
+      event.tickets.availableTickets -=registrationDetails.tickets.ticketsBought;
     }
     const user = await User.findById(userId);
     for(let j=0;j<event.registrations.length;j++){
