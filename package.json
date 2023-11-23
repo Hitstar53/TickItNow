@@ -17,7 +17,6 @@
   },
   "dependencies": {
     "express-async-handler": "^1.2.0",
-    "nodemon": "^3.0.1",
-    "razorpay": "^2.9.2"
+    "nodemon": "^3.0.1"
   }
 }

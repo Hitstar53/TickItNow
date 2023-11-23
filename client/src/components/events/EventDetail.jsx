@@ -61,7 +61,7 @@ const EventDetail = () => {
     <React.Fragment>
       <div className={styles.mainDiv}>
         <div>
-          <img src={event.image} alt="event" className={styles.eventImage} />
+          <img src={event.banner} alt="event" className={styles.eventImage} />
         </div>
         <div className={styles.otherDetails}>
           <div className={styles.eventName}>{event.title}</div>

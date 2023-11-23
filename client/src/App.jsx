@@ -24,7 +24,6 @@ const router = createBrowserRouter([
       { path: "home", element: <Home /> },
       { path: "login", element: <Login /> },
       { path: "signup", element: <SignUp /> },
-      { path: "eventmanager", element: <EventManager /> },
       { path: "events", element: <Events />, loader: EventsLoader },
       { path: "events/:name", element: <EventDetail />, loader: EventDetailLoader },
       {
@@ -37,6 +36,7 @@ const router = createBrowserRouter([
         path: "organizer",
         children: [
           { path: "dashboard", element: <Dashboard /> },
+          { path: "eventmanager", element: <EventManager /> },
         ],
       },
     ],
