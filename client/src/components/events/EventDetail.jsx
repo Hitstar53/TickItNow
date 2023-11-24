@@ -115,7 +115,12 @@ const EventDetail = () => {
             </div>
           </div>
           <div className={styles.map}>
-            <span className={styles.artistHeading}>Map</span>
+            <span className={styles.artistHeading}>
+              Map
+            </span>
+            <iframe class="w-100 rounded mb-4" height="150px" width="300px"
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.212543253533!2d72.83246561481948!3d18.921984087176476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sGateway%20Of%20India%20Mumbai!5e0!3m2!1sen!2sin!4v1666881504909!5m2!1sen!2sin"
+              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           </div>
         </div>
       </div>
