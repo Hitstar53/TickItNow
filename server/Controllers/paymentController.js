@@ -18,9 +18,7 @@ const makePayment = async(req,res)=>{
       const user = await User.findById(user_id);
       const event = await Event.findById(event_id);
       const ticketPrice = event.tickets.price;
-      console.log(ticketPrice);
       const amount = ticketPrice * numberOfTickets;
-      console.log(amount);
       const options = {
         amount: amount,
         currency: 'INR',
