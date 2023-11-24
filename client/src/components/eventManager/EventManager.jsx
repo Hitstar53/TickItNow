@@ -21,6 +21,7 @@ function convertToBase64(file) {
 
 export default function EventManager() {
     const data = useLoaderData();
+    console.log(data.eventData);
     const [openDialog, setOpenDialog] = useState(false);
     const handleClickOpenDialog = () => {
       setOpenDialog(true);
@@ -54,8 +55,8 @@ export default function EventManager() {
           body: JSON.stringify({
             title: newData.title,
             description: newData.description,
-            image: newData.image,
-            banner: newData.banner,
+            image: base64,
+            banner: bannerBase64,
             tickets: { price: newData.ticket, availableTickets: '5000' },
             genre: newData.genre,
             language: newData.language,
@@ -79,6 +80,26 @@ export default function EventManager() {
       };
       addEvent();
     };
+    const handleDelete = async (id) => {
+      console.log(id);
+      const deleteEvent = async () => {
+        const response = await fetch(`${ServerUrl}/api/events/deleteEvent/${id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        if (!response.ok) {
+          console.log("Something went wrong, please try again later");
+        }
+        if (response.ok) {
+          const data = await response.json();
+          console.log(data);
+          window.location.reload();
+        }
+      };
+      deleteEvent();
+    }
     return (
       <div className="mb-10">
         <div className={styles.titlebar}>
@@ -87,31 +108,16 @@ export default function EventManager() {
         </div>
         <div className={styles.horizontalLine}></div>
         <div className={styles.card}>
-          <Card
-            title="Hello World"
-            link="https://source.unsplash.com/random/600x400"
-            artist="John Doe"
-          />
-          <Card
-            title="Hello World"
-            link="https://source.unsplash.com/random/600x400"
-            artist="John Doe"
-          />
-          <Card
-            title="Hello World"
-            link="https://source.unsplash.com/random/600x400"
-            artist="John Doe"
-          />
-          <Card
-            title="Hello World"
-            link="https://source.unsplash.com/random/600x400"
-            artist="John Doe"
-          />
-          <Card
-            title="Hello World"
-            link="https://source.unsplash.com/random/600x400"
-            artist="John Doe"
-          />
+          {data.eventData.map((event) => (
+            <Card
+              key={event._id}
+              id={event._id}
+              title={event.title}
+              link={event.image}
+              artist={event.artist}
+              handleDelete={handleDelete}
+            />
+          ))}
         </div>
         <MultiFieldModal
           handleDataSubmit={handleDataSubmit}
@@ -296,7 +302,9 @@ export default function EventManager() {
 }
 
 export async function loader() {
-  const response = await fetch(`${ServerUrl}/api/events`, {
+  const organizerId = JSON.parse(localStorage.getItem("user"))._id;
+  // console.log(organizerId);
+  const response = await fetch(`${ServerUrl}/api/organizer/events/${organizerId}`, {
     method: "GET",
     headers: {
       "Content-Type": "application/json",
@@ -309,7 +317,7 @@ export async function loader() {
     );
   }
   if (response.ok) {
-    const eventsData = await response.json();
-    return { eventsData };
+    const eventData = await response.json();
+    return { eventData };
   }
 }

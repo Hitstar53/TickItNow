@@ -18,7 +18,7 @@ router.patch('/update/:id', organizerController.updateOrganizer);
 router.delete('/delete/:id', organizerController.deleteOrganizer);
 
 // Get events by organizer ID
-router.get(':id/events', organizerController.getEventsByOrganizerId);
+router.get('/events/:id', organizerController.getEventsByOrganizerId);
 
 router.post('/login',organizerController.loginOrganizer);
 

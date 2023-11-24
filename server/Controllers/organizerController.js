@@ -80,7 +80,7 @@ const deleteOrganizer = async (req, res) => {
 }
 
 const getEventsByOrganizerId = async (req, res) => {
-    const { id } = req.params;
+    const id = req.params.id;
     try {
         const events = await Event.find({ organizer: id }).select("-password");
         res.status(200).json(events);

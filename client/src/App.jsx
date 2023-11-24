@@ -10,7 +10,7 @@ import Events, { loader as EventsLoader } from './components/events/Events';
 import EventDetail, { loader as EventDetailLoader } from './components/events/EventDetail';
 import Dashboard from './components/Dashboard/Dashboard';
 import Calendar from './components/Calendar/Calendar';
-import EventManager from './components/eventManager/EventManager';
+import EventManager, {loader as eventManageLoader} from './components/eventManager/EventManager';
 import './App.css';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
       {
         path: "organiser",
         children: [
-          { path: "dashboard", element: <EventManager /> },
+          { path: "dashboard", element: <EventManager />, loader: eventManageLoader },
         ],
       },
     ],
