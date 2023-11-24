@@ -15,7 +15,12 @@ const makePayment = async(req,res)=>{
       const numberOfTickets = req.body.numberOfTickets;
       const user_id = req.body.user_id;
       const event_id = req.body.event_id;
-      const amount = Event.findById(event_id).select('tickets.price') * numberOfTickets;
+      const user = await User.findById(user_id);
+      const event = await Event.findById(event_id);
+      const ticketPrice = event.tickets.price;
+      console.log(ticketPrice);
+      const amount = ticketPrice * numberOfTickets;
+      console.log(amount);
       const options = {
         amount: amount,
         currency: 'INR',
@@ -25,13 +30,14 @@ const makePayment = async(req,res)=>{
       razorpayInstance.orders.create(options, 
         (err, order)=>{
             if(!err){
+              console.log(order.id);
                 res.status(200).send({
                   success:true,
                   msg:'Order Created',
                   order_id:order.id,
                   amount:amount,
-                  name: User.findById(user_id).select.username,
-                  email: User.findById(user_id).select.email,
+                  name: user.username,
+                  email: user.email,
                   event_id: event_id
                 });
             }
