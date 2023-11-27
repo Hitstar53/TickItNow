@@ -31,8 +31,9 @@ COPY package*.json ./
 
 # Install only production dependencies
 RUN npm install --production
+RUN npm install -g vite
 
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "run", "preview"]
+CMD ["npm", "run", "dev"]
