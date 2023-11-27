@@ -1,39 +1,12 @@
-# Use a lightweight Node version
-FROM node:14-alpine as build
+FROM node
 
-# Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the working directory
-COPY package*.json ./
+COPY package.json .
+RUN npm i
 
-# Install dependencies
-RUN npm install
-
-# install vite
-RUN npm install -g vite
-
-# Copy the source code to the working directory
 COPY . .
 
-# Build the Vite project
-RUN npm run build
+EXPOSE 5173
 
-# Production image with a smaller base image
-FROM node:18.11.0-alpine as production
-
-# Set working directory
-WORKDIR /app
-
-# Copy only necessary files from the build stage
-COPY --from=build /app/dist /app/dist
-COPY package*.json ./
-
-# Install only production dependencies
-RUN npm install --production
-RUN npm install -g vite
-
-EXPOSE 3000
-
-# Start the application
 CMD ["npm", "run", "dev"]
