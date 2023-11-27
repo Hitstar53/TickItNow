@@ -25,7 +25,7 @@ const getEvent = asyncHandler(async (req, res) => {
 
 const setEvent = asyncHandler(async (req, res) => {
     const organizer = req.params.id;
-    console.log(organizer);
+    console.log(req.body);
   try {
     const event = new Events({
       banner: req.body.banner,
@@ -49,7 +49,7 @@ const setEvent = asyncHandler(async (req, res) => {
     console.log(event)
     const org = await Organizer.findById(organizer);
     console.log(org);
-    // event.organizer = org;
+    event.organizer = org;
     await event.save();
     org.events.push(event);
     await org.save();
@@ -100,14 +100,11 @@ const registrationDetails = asyncHandler(async (req, res) => {
 
   try {
     const event = await Events.findById(eventId);
-    console.log("here");
-    for (let i = 0; i < registrationDetails.tickets.length; i++) {
       if(event.tickets.availableTickets<registrationDetails.tickets.ticketsBought){
         res.status(400).json("Tickets not available");
         return;
       }
-      event.tickets.availableTickets -=registrationDetails.tickets.ticketsBought;
-    }
+    event.tickets.availableTickets -=registrationDetails.tickets.ticketsBought;
     const user = await User.findById(userId);
     // for(let j=0;j<event.registrations.length;j++){
     //     if(event.registrations[j]._id==userId){
