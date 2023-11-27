@@ -13,6 +13,10 @@ const razorpayInstance = new Razorpay({
 const makePayment = async(req,res)=>{
   try {
       const numberOfTickets = req.body.numberOfTickets;
+      if (numberOfTickets < 1) {
+        res.status(400).send({success:false,msg:'Number of tickets must be greater than 0'});
+        return;
+      }
       const user_id = req.body.user_id;
       const event_id = req.body.event_id;
       const user = await User.findById(user_id);

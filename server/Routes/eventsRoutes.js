@@ -15,5 +15,5 @@ router.get("/:id", getEvent);
 router.put("/:id/setEvent", setEvent);
 router.delete("/deleteEvent/:id", deleteEvent);
 router.patch("/updateEvent/:id", updateEvent);
-router.post("/:id/registrationDetails", registrationDetails);
+router.post("/registrationDetails/:id", registrationDetails);
 export default router;

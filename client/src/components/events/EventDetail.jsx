@@ -17,6 +17,7 @@ import ServerUrl from "../../constants";
 const EventDetail = () => {
   const data = useLoaderData();
   console.log(data.eventsData)
+  const [content, setContent] = useState("");
   const [event, setEvent] = useState(data.eventsData);
   const [openDialog, setOpenDialog] = useState(false);
   const handleClickOpenDialog = () => {
@@ -29,13 +30,20 @@ const EventDetail = () => {
   const handleDataChange = (e) => {
     setNewData({ ...newData, [e.target.name]: e.target.value });
   };
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handleDataSubmit = async (e) => {
     e.preventDefault();
-    console.log(event._id)
+    console.log(JSON.parse(localStorage.getItem("user"))._id);
     console.log(newData);
     const makeRegistration = async () => {
       const response = await fetch(`${ServerUrl}/api/user/makePayment1`, {
-        method: "PUT",
+        method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
@@ -43,6 +51,8 @@ const EventDetail = () => {
           user_id: JSON.parse(localStorage.getItem("user"))._id,
           event_id: event._id,
           numberOfTickets: newData.tickets,
+          currency: "INR",
+          orderId: "123456789",
         }),
       });
       if (!response.ok) {
@@ -51,6 +61,40 @@ const EventDetail = () => {
       if (response.ok) {
         const data = await response.json();
         console.log(data);
+        setContent({
+          message: "Payment Successful",
+          orderId: data.order_id,
+          amount: data.amount,
+          name: data.name,
+          email: data.email,
+          event_id: data.event_id,
+        
+        });
+        handleClickOpen();
+        const response1 = await fetch(`${ServerUrl}/api/events/registrationDetails/${event._id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: JSON.parse(localStorage.getItem("user"))._id,
+            registrationDetails: {
+            tickets: {
+              price: event.tickets.price,
+              ticketsBought: newData.tickets,
+            }
+          },
+          }),
+        });
+        if (!response1.ok) {
+          const data1 = await response1.json();
+          // let content = JSON.stringify(data1);
+          // handleClickOpen();
+        }
+        if (response1.ok) {
+          const data1 = await response1.json();
+          console.log(data1);
+        }
       }
     };
     makeRegistration();
@@ -107,23 +151,78 @@ const EventDetail = () => {
           <div className={styles.artist}>
             <span className={styles.artistHeading}>Artists</span>
             <div className="flex items-center gap-5 mt-3">
-              {
-                event.artist.split(",").map((artist) => (
-                  <div className={styles.artistName}>{artist}</div>
-                ))
-              }
+              {event.artist.split(",").map((artist) => (
+                <div className={styles.artistName}>{artist}</div>
+              ))}
             </div>
           </div>
           <div className={styles.map}>
-            <span className={styles.artistHeading}>
-              Map
-            </span>
-            <iframe class="w-100 rounded mb-4" height="150px" width="300px"
+            <span className={styles.artistHeading}>Map</span>
+            <iframe
+              class="w-100 rounded mb-4"
+              height="150px"
+              width="300px"
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3774.212543253533!2d72.83246561481948!3d18.921984087176476!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7d1c73a0d5cad%3A0xc70a25a7209c733c!2sGateway%20Of%20India%20Mumbai!5e0!3m2!1sen!2sin!4v1666881504909!5m2!1sen!2sin"
-              loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
           </div>
         </div>
       </div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogContent sx={{ background: "var(--bg-color)", pb: 0 }}>
+          <DialogContentText
+            sx={{ color: "var(--text-color)" }}
+            id="alert-dialog-description"
+          >
+            <div className={styles.paymentMessage}>{content.message}</div>
+            <div className={styles.paymentDetails}>
+              <div className={styles.paymentDetail}>
+                <div className={styles.paymentDetailHeading}>Order Id</div>
+                <div className={styles.paymentDetailContent}>
+                  {content.orderId}
+                </div>
+              </div>
+              <div className={styles.paymentDetail}>
+                <div className={styles.paymentDetailHeading}>Amount</div>
+                <div className={styles.paymentDetailContent}>
+                  ₹{content.amount}
+                </div>
+              </div>
+              <div className={styles.paymentDetail}>
+                <div className={styles.paymentDetailHeading}>Name</div>
+                <div className={styles.paymentDetailContent}>
+                  {content.name}
+                </div>
+              </div>
+              <div className={styles.paymentDetail}>
+                <div className={styles.paymentDetailHeading}>Email</div>
+                <div className={styles.paymentDetailContent}>
+                  {content.email}
+                </div>
+              </div>
+              <div className={styles.paymentDetail}>
+                <div className={styles.paymentDetailHeading}>Event Id</div>
+                <div className={styles.paymentDetailContent}>
+                  {content.event_id}
+                </div>
+              </div>
+            </div>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions
+          sx={{ background: "var(--bg-color)", color: "var(--text-color)" }}
+        >
+          <Button sx={{ color: "var(--text-color)" }} onClick={handleClose}>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
       <MultiFieldModal
         handleDataSubmit={handleDataSubmit}
         openDialog={openDialog}

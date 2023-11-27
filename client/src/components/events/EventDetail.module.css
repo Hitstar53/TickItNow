@@ -135,3 +135,35 @@
     opacity: 0.9;
     font-weight: bold;
 }
+
+.paymentMessage {
+    font-size: 1.25rem;
+    font-weight: 800;
+    padding: 1rem 0;
+}
+
+.paymentDetails {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 1rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.paymentDetail {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.paymentDetailHeading {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.paymentDetailContent {
+    font-size: 1.2rem;
+    font-weight: 400;
+}

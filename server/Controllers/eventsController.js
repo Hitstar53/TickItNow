@@ -104,22 +104,26 @@ const registrationDetails = asyncHandler(async (req, res) => {
     for (let i = 0; i < registrationDetails.tickets.length; i++) {
       if(event.tickets.availableTickets<registrationDetails.tickets.ticketsBought){
         res.status(400).json("Tickets not available");
+        return;
       }
       event.tickets.availableTickets -=registrationDetails.tickets.ticketsBought;
     }
     const user = await User.findById(userId);
-    for(let j=0;j<event.registrations.length;j++){
-        if(event.registrations[j]._id==userId){
-            res.status(400).json("User already registered");
-        }
-    }
+    // for(let j=0;j<event.registrations.length;j++){
+    //     if(event.registrations[j]._id==userId){
+    //         res.status(400).json("User already registered");
+    //         return;
+    //     }
+    // }
     event.registrations.push(user);
     await event.save();
     user.priceList.push({eventId:event,list:registrationDetails.tickets});
     await user.save();
     res.status(200).json("Registration Succesfull");
+    return;
   } catch (error) {
     res.status(400).json(error);
+    return;
   }
 });
 

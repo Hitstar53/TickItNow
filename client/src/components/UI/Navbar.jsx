@@ -46,10 +46,10 @@ const authItems = [
   },
 ];
 const userItems = [
-  {
-    name: "Calendar",
-    route: "/user/",
-  },
+  // {
+  //   name: "Calendar",
+  //   route: "/user/",
+  // },
   {
     name: "Dashboard",
     route: "/organiser/",
