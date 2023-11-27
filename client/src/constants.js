@@ -1,3 +1,3 @@
-const ServerUrl = "http://localhost:3000";
+const ServerUrl = "http://localhost:5000";
 
 export default ServerUrl;
