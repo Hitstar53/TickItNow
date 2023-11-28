@@ -29,3 +29,5 @@ app.use('/api/user', userRouter)
 app.use('/api/events', eventsRouter)
 app.use('/api/organizer', organizerRouter)
 app.use('/api/payment', paymentRouter)
+
+export default app

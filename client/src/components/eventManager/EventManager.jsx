@@ -47,7 +47,7 @@ export default function EventManager() {
         (prev) => ({ ...prev, banner: bannerBase64 })
       );
       const addEvent = async () => {
-        const response = await fetch(`${ServerUrl}/api/events/${organizerId}/setEvent`, {
+        const response = await fetch(`${ServerUrl}/api/events/setEvent/${organizerId}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

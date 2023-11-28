@@ -41,7 +41,7 @@ const setEvent = asyncHandler(async (req, res) => {
       tickets: req.body.tickets,
       genre: req.body.genre,
       organizer: organizer,
-      registrations: req.body.registrations,
+      registrations: [],
       artist: req.body.artist,
       latitude: req.body.latitude,
       longitude: req.body.longitude
