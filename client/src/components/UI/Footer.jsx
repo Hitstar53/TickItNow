@@ -46,7 +46,7 @@ const Footer = () => {
         <p className="text-center text-sm font-thin">
           Copyright &copy; 2023 TickItNow. All rights reserved.
           <br />
-          Designed by <a href="https://www.github.com/hitstar53" className='font-medium'>Hitstar53</a>
+          Designed by <a href="https://www.github.com/hitstar53" className='font-medium'>Hatim</a>, <a href="https://www.github.com/dhruv1606" className='font-medium'>Dhruv</a>, <a href="https://www.github.com/mufaddal-shiyaji" className='font-medium'>Mufaddal</a>, <a href="https://www.github.com/KaifSayyad" className='font-medium'>Kaif</a> 
         </p>
       </footer>
     </React.Fragment>
