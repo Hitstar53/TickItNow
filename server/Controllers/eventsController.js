@@ -25,7 +25,7 @@ const getEvent = asyncHandler(async (req, res) => {
 
 const setEvent = asyncHandler(async (req, res) => {
     const organizer = req.params.id;
-    console.log(req.body);
+    // console.log(req.body);
   try {
     const event = new Events({
       banner: req.body.banner,
@@ -46,7 +46,7 @@ const setEvent = asyncHandler(async (req, res) => {
       latitude: req.body.latitude,
       longitude: req.body.longitude
     });
-    console.log(event)
+    // console.log(event)
     const org = await Organizer.findById(organizer);
     console.log(org);
     event.organizer = org;

@@ -35,7 +35,7 @@ describe("Event Controller", () => {
   describe("POST /events", () => {
     it("should create a new event", async () => {
       const newEvent = {
-        title: "Test Event123!",
+        title: "Test Event!",
         description: "This is a test event",
         startDate: "2023-11-28",
         endDate: "2023-11-28",
@@ -56,7 +56,7 @@ describe("Event Controller", () => {
       };
 
       const response = await request(app)
-        .post("/api/events/setEvent/655f9f0395c574308b847906/")
+        .put("/api/events/setEvent/655f9f0395c574308b847906/")
         .send(newEvent);
 
       expect(response.status).toBe(200);
@@ -68,7 +68,7 @@ describe("Event Controller", () => {
   describe("DELETE /events/:id", () => {
     it("should delete an event", async () => {
       const response = await request(app).delete(
-        "/api/events/deleteEvent/6565f549fbdc931825a21d64"
+        "/api/events/deleteEvent/65668613c45c9e6c793f9b9b"
       );
       expect(response.status).toBe(200);
     });
@@ -78,8 +78,8 @@ describe("Event Controller", () => {
   describe("PUT /events/:id", () => {
     it("should update an event", async () => {
       const updatedEvent = {
-        title: "Test Update Event!",
-        description: "This is a test event!!!",
+        title: "Testing Update Event!",
+        description: "This is a test to make sure update event works",
       };
       const response = await request(app)
         .patch("/api/events/updateEvent/655c6cfe06878f96592bb599/")
