@@ -1,0 +1,22 @@
+{
+  "name": "tickitnow",
+  "version": "1.0.0",
+  "description": "An Event Management and Ticketing System",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "npm run dev --prefix client",
+    "server": "nodemon server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^8.2.1"
+  },
+  "dependencies": {
+    "express-async-handler": "^1.2.0",
+    "nodemon": "^3.0.1"
+  }
+}

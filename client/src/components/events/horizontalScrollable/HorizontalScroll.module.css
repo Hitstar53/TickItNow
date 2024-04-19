@@ -1,0 +1,25 @@
+.backBtn img {
+    height: 30px;
+    width: 30px;
+}
+
+.nextBtn img {
+    height: 30px;
+    width: 30px;
+}
+
+.nextBtn {
+    padding: 5px;
+    margin-left: 200px;
+    margin-top: 10px;
+    background: none;
+    border: 2px solid black;
+    border-radius: 50%;
+}
+
+.backBtn {
+    padding: 5px;
+    margin-right: 5px;
+    border: 2px solid black;
+    border-radius: 50%;
+}
